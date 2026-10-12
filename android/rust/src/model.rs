@@ -56,6 +56,9 @@ pub struct Host {
     pub is_self: bool,
     pub is_gateway: bool,
     pub services: Vec<String>,
+    /// How trustworthy `model` is (see `discover::model_rank`); never serialized.
+    #[serde(skip)]
+    pub model_rank: u8,
 }
 
 impl Host {

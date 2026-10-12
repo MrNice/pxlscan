@@ -94,7 +94,25 @@ pub struct MdnsInfo {
     pub name: Option<String>,
     pub services: Vec<String>,
     pub model: Option<String>,
+    /// `model_rank` of `model`; 0 when there is none.
+    pub model_rank: u8,
     pub friendly: Option<String>,
+}
+
+/// How much to trust a TXT model value. One host answers for many services, and they disagree:
+/// a Mac sends `model=Mac15,7` under `_device-info` while another service's `md=` is "0,1,2".
+/// Apple's `_device-info` record is made for this; `model=` beats `md=`; a value with no letters
+/// is never a model. Returns 0 to reject.
+pub fn model_rank(record: &str, key: &str, value: &str) -> u8 {
+    if !value.chars().any(|c| c.is_ascii_alphabetic()) {
+        return 0;
+    }
+    let device_info = service_of(record).as_deref() == Some("_device-info._tcp");
+    match (device_info, key) {
+        (true, _) => 3,
+        (false, "model") => 2,
+        _ => 1,
+    }
 }
 
 /// `_googlecast._tcp.local` or `Foo._googlecast._tcp.local` -> `_googlecast._tcp`.
@@ -160,10 +178,13 @@ pub fn summarize_mdns(recs: &[Record], from: Ipv4Addr) -> HashMap<Ipv4Addr, Mdns
                     if v.is_empty() {
                         continue;
                     }
-                    match k.to_ascii_lowercase().as_str() {
+                    let key = k.to_ascii_lowercase();
+                    match key.as_str() {
                         "md" | "model" => {
-                            if e.model.is_none() {
+                            let rank = model_rank(&r.name, &key, v);
+                            if rank > e.model_rank {
                                 e.model = Some(v.to_string());
+                                e.model_rank = rank;
                             }
                         }
                         "fn" => {
@@ -267,8 +288,10 @@ pub async fn mdns(sh: Arc<Shared>) {
                         for s in &info.services {
                             h.add_service(s);
                         }
-                        if h.model.is_none() {
+                        // Replies arrive in any order; keep the best-ranked model across them.
+                        if info.model_rank > h.model_rank {
                             h.model = info.model.clone();
+                            h.model_rank = info.model_rank;
                         }
                         if h.friendly_name.is_none() {
                             h.friendly_name = info.friendly.clone();
@@ -474,8 +497,10 @@ pub async fn ssdp(sh: Arc<Shared>) {
                 if h.vendor.is_none() {
                     h.vendor = x.manufacturer.clone();
                 }
-                if h.model.is_none() {
+                // A UPnP <modelName> ranks with a TXT `model=` (2): below `_device-info` only.
+                if x.model_name.is_some() && h.model_rank < 2 {
                     h.model = x.model_name.clone();
+                    h.model_rank = 2;
                 }
                 if let Some(dt) = &x.device_type {
                     if dt.contains("InternetGatewayDevice") {
@@ -606,6 +631,31 @@ mod tests {
         let (n, next) = dns::read_name(&pkt, 12).unwrap();
         assert_eq!(n, "_services._dns-sd._udp.local");
         assert_eq!(&pkt[next..next + 4], &[0, 12, 0x80, 0x01]);
+    }
+
+    #[test]
+    fn model_prefers_device_info_and_rejects_numbers() {
+        // Seen on a real Mac: another service's md= said "0,1,2" and won when it arrived first.
+        let from = Ipv4Addr::new(10, 0, 0, 3);
+        let txt = |name: &str, item: &str| Record {
+            name: name.into(),
+            rtype: dns::TYPE_TXT,
+            rdata: RData::Txt(vec![item.into()]),
+        };
+        let recs = vec![
+            txt("Mac._vstreamdeck2._tcp.local", "md=0,1,2"),
+            txt("Mac._airplay._tcp.local", "model=MacBookPro"),
+            txt("Mac._device-info._tcp.local", "model=Mac15,7"),
+        ];
+        let info = &summarize_mdns(&recs, from)[&from];
+        assert_eq!(info.model.as_deref(), Some("Mac15,7"));
+        assert_eq!(info.model_rank, 3);
+
+        // Order does not matter, and a letterless value never becomes the model.
+        let only_bad = vec![txt("Mac._vstreamdeck2._tcp.local", "md=0,1,2")];
+        assert_eq!(summarize_mdns(&only_bad, from)[&from].model, None);
+        assert_eq!(model_rank("X._googlecast._tcp.local", "md", "Chromecast"), 1);
+        assert_eq!(model_rank("X._airplay._tcp.local", "model", "AppleTV6,2"), 2);
     }
 
     #[test]

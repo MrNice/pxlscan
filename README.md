@@ -87,17 +87,25 @@ The scanning runs in a Rust core. The app is Kotlin and Jetpack Compose.
   device announces its own.
 - **Some networks block it.** Guest networks and some mesh or business routers stop devices from
   seeing each other. If a scan finds only your phone, the app says so and offers its diagnostics.
-- **Background checks are 15 minutes apart at most.** That is the shortest interval Android allows
+- **Background checks are at least 15 minutes apart.** That is the shortest interval Android allows
   for a background job.
 - **A VPN can hide the LAN.** Some VPNs send all traffic, including local traffic, through the
   tunnel. Turn the VPN off or allow local network access in its settings.
 
-## Privacy
+## PxLScan Privacy Policy
 
-PxLScan has no server and no analytics. It sends packets to addresses on your own subnet, and
-reverse-DNS lookups for those addresses to the DNS servers your phone uses. That is usually your
-router. If you set a public DNS server such as 1.1.1.1, those lookups go there. Scan results,
-labels and the activity log stay in the app's private storage on your phone.
+PxLScan collects no personal data and shares none. It has no account, no ads, no analytics and no
+server.
+
+- **What it sends.** Packets to addresses on your own subnet, and reverse-DNS lookups for those
+  addresses to the DNS servers your phone uses. That is usually your router. If you set a public
+  DNS server such as 1.1.1.1, those lookups go there.
+- **What it keeps.** Scan results, your device labels and the activity log, in the app's private
+  storage on your phone. Nothing is uploaded.
+- **Deleting it.** Monitor ▸ Clear empties the activity log. Uninstalling the app, or clearing its
+  storage in Android settings, deletes everything.
+
+Questions about privacy: [nicholas@pixelicious.com](mailto:nicholas@pixelicious.com)
 
 ## Building
 

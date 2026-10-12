@@ -25,8 +25,8 @@ android {
         minSdk = 26
         // Play requires API 36 for new apps since the August 2026 deadline.
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.2.1"
+        versionCode = 5
+        versionName = "0.2.2"
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
             // Ship the Rust core's symbol table in the .aab so Play shows readable native stacks.

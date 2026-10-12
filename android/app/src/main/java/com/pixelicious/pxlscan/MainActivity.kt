@@ -89,7 +89,7 @@ class MainActivity : ComponentActivity() {
 }
 
 object BuildConfigLite {
-    const val VERSION = "0.2.1"
+    const val VERSION = "0.2.2"
 }
 
 private enum class Tab(val label: String, val icon: ImageVector) {
