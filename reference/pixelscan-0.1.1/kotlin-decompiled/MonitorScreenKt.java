@@ -1,16 +1,29 @@
 package com.mrnice.pixelscan;
 
 import android.content.Context;
+import androidx.compose.foundation.BackgroundKt;
 import androidx.compose.foundation.layout.Arrangement;
+import androidx.compose.foundation.layout.ColumnKt;
+import androidx.compose.foundation.layout.ColumnScopeInstance;
 import androidx.compose.foundation.layout.PaddingKt;
 import androidx.compose.foundation.layout.RowKt;
 import androidx.compose.foundation.layout.RowScope;
 import androidx.compose.foundation.layout.RowScopeInstance;
 import androidx.compose.foundation.layout.SizeKt;
+import androidx.compose.foundation.layout.SpacerKt;
 import androidx.compose.foundation.lazy.LazyDslKt;
 import androidx.compose.foundation.lazy.LazyItemScope;
 import androidx.compose.foundation.lazy.LazyListScope;
+import androidx.compose.foundation.shape.RoundedCornerShapeKt;
+import androidx.compose.material.icons.Icons;
+import androidx.compose.material.icons.filled.CircleKt;
+import androidx.compose.material.icons.filled.FiberNewKt;
+import androidx.compose.material.icons.filled.LoginKt;
+import androidx.compose.material.icons.filled.LogoutKt;
+import androidx.compose.material.icons.filled.SwapHorizKt;
 import androidx.compose.material3.ButtonKt;
+import androidx.compose.material3.DividerKt;
+import androidx.compose.material3.IconKt;
 import androidx.compose.material3.TextKt;
 import androidx.compose.material3.internal.CalendarModelKt;
 import androidx.compose.runtime.Applier;
@@ -28,6 +41,9 @@ import androidx.compose.runtime.internal.ComposableLambdaKt;
 import androidx.compose.ui.Alignment;
 import androidx.compose.ui.ComposedModifierKt;
 import androidx.compose.ui.Modifier;
+import androidx.compose.ui.draw.ClipKt;
+import androidx.compose.ui.graphics.Color;
+import androidx.compose.ui.graphics.vector.ImageVector;
 import androidx.compose.ui.layout.MeasurePolicy;
 import androidx.compose.ui.node.ComposeUiNode;
 import androidx.compose.ui.platform.AndroidCompositionLocals_androidKt;
@@ -48,6 +64,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import kotlin.Metadata;
+import kotlin.Pair;
+import kotlin.TuplesKt;
 import kotlin.Unit;
 import kotlin.collections.CollectionsKt;
 import kotlin.jvm.functions.Function0;
@@ -498,14 +516,160 @@ public final class MonitorScreenKt {
     /* JADX WARN: Removed duplicated region for block: B:73:? A[RETURN, SYNTHETIC] */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    private static final void StatTile(final java.lang.String r32, final java.lang.String r33, final androidx.compose.ui.Modifier r34, boolean r35, androidx.compose.runtime.Composer r36, final int r37, final int r38) {
-        /*
-            Method dump skipped, instructions count: 502
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.mrnice.pixelscan.MonitorScreenKt.StatTile(java.lang.String, java.lang.String, androidx.compose.ui.Modifier, boolean, androidx.compose.runtime.Composer, int, int):void");
+    private static final void StatTile(final String str, final String str2, final Modifier modifier, boolean z, Composer composer, final int i, final int i2) {
+        String str3;
+        int i3;
+        String str4;
+        boolean z2;
+        int currentCompositeKeyHash;
+        Composer composerM3333constructorimpl;
+        Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash;
+        Composer composer2;
+        final boolean z3;
+        ScopeUpdateScope scopeUpdateScopeEndRestartGroup;
+        Composer composerStartRestartGroup = composer.startRestartGroup(-1003191483);
+        ComposerKt.sourceInformation(composerStartRestartGroup, "C(StatTile)P(1,3,2)74@3432L260:MonitorScreen.kt#woosis");
+        if ((i & 6) == 0) {
+            str3 = str;
+            i3 = (composerStartRestartGroup.changed(str3) ? 4 : 2) | i;
+        } else {
+            str3 = str;
+            i3 = i;
+        }
+        if ((i & 48) == 0) {
+            str4 = str2;
+            i3 |= composerStartRestartGroup.changed(str4) ? 32 : 16;
+        } else {
+            str4 = str2;
+        }
+        if ((i & 384) == 0) {
+            i3 |= composerStartRestartGroup.changed(modifier) ? 256 : 128;
+        }
+        int i4 = i2 & 8;
+        if (i4 == 0) {
+            if ((i & 3072) == 0) {
+                z2 = z;
+                i3 |= composerStartRestartGroup.changed(z2) ? 2048 : 1024;
+            }
+            if ((i3 & 1171) != 1170 && composerStartRestartGroup.getSkipping()) {
+                composerStartRestartGroup.skipToGroupEnd();
+                composer2 = composerStartRestartGroup;
+                z3 = z2;
+            } else {
+                boolean z4 = i4 == 0 ? false : z2;
+                if (ComposerKt.isTraceInProgress()) {
+                    ComposerKt.traceEventStart(-1003191483, i3, -1, "com.mrnice.pixelscan.StatTile (MonitorScreen.kt:73)");
+                }
+                float f = 12;
+                Modifier modifierM681padding3ABfNKs = PaddingKt.m681padding3ABfNKs(BackgroundKt.m236backgroundbw27NRU$default(ClipKt.clip(modifier, RoundedCornerShapeKt.m964RoundedCornerShape0680j_4(Dp.m6299constructorimpl(f))), Ink.INSTANCE.m6634getSurface0d7_KjU(), null, 2, null), Dp.m6299constructorimpl(f));
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -483455358, "CC(Column)P(2,3,1)86@4330L61,87@4396L133:Column.kt#2w3rfo");
+                MeasurePolicy measurePolicyColumnMeasurePolicy = ColumnKt.columnMeasurePolicy(Arrangement.INSTANCE.getTop(), Alignment.INSTANCE.getStart(), composerStartRestartGroup, 0);
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+                currentCompositeKeyHash = ComposablesKt.getCurrentCompositeKeyHash(composerStartRestartGroup, 0);
+                CompositionLocalMap currentCompositionLocalMap = composerStartRestartGroup.getCurrentCompositionLocalMap();
+                Modifier modifierMaterializeModifier = ComposedModifierKt.materializeModifier(composerStartRestartGroup, modifierM681padding3ABfNKs);
+                Function0<ComposeUiNode> constructor = ComposeUiNode.INSTANCE.getConstructor();
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+                if (!(composerStartRestartGroup.getApplier() instanceof Applier)) {
+                    ComposablesKt.invalidApplier();
+                }
+                composerStartRestartGroup.startReusableNode();
+                if (!composerStartRestartGroup.getInserting()) {
+                    composerStartRestartGroup.createNode(constructor);
+                } else {
+                    composerStartRestartGroup.useNode();
+                }
+                composerM3333constructorimpl = Updater.m3333constructorimpl(composerStartRestartGroup);
+                Updater.m3340setimpl(composerM3333constructorimpl, measurePolicyColumnMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+                Updater.m3340setimpl(composerM3333constructorimpl, currentCompositionLocalMap, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+                setCompositeKeyHash = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+                if (!composerM3333constructorimpl.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl.rememberedValue(), Integer.valueOf(currentCompositeKeyHash))) {
+                    composerM3333constructorimpl.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash));
+                    composerM3333constructorimpl.apply(Integer.valueOf(currentCompositeKeyHash), setCompositeKeyHash);
+                }
+                Updater.m3340setimpl(composerM3333constructorimpl, modifierMaterializeModifier, ComposeUiNode.INSTANCE.getSetModifier());
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -384784025, "C88@4444L9:Column.kt#2w3rfo");
+                ColumnScopeInstance columnScopeInstance = ColumnScopeInstance.INSTANCE;
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1240535001, "C75@3525L102,76@3636L50:MonitorScreen.kt#woosis");
+                Ink ink = Ink.INSTANCE;
+                composer2 = composerStartRestartGroup;
+                TextKt.m2373Text4IGK_g(str4, (Modifier) null, !z4 ? ink.m6632getRed0d7_KjU() : ink.m6636getText0d7_KjU(), TextUnitKt.getSp(24), (FontStyle) null, FontWeight.INSTANCE.getBold(), (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer2, ((i3 >> 3) & 14) | 199680, 0, 131026);
+                TextKt.m2373Text4IGK_g(str3, (Modifier) null, Ink.INSTANCE.m6637getTextDim0d7_KjU(), TextUnitKt.getSp(11), (FontStyle) null, (FontWeight) null, (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer2, (i3 & 14) | 3072, 0, 131058);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                composer2.endNode();
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                if (ComposerKt.isTraceInProgress()) {
+                    ComposerKt.traceEventEnd();
+                }
+                z3 = z4;
+            }
+            scopeUpdateScopeEndRestartGroup = composer2.endRestartGroup();
+            if (scopeUpdateScopeEndRestartGroup == null) {
+                scopeUpdateScopeEndRestartGroup.updateScope(new Function2() { // from class: com.mrnice.pixelscan.MonitorScreenKt$$ExternalSyntheticLambda0
+                    @Override // kotlin.jvm.functions.Function2
+                    public final Object invoke(Object obj, Object obj2) {
+                        return MonitorScreenKt.StatTile$lambda$20(str, str2, modifier, z3, i, i2, (Composer) obj, ((Integer) obj2).intValue());
+                    }
+                });
+                return;
+            }
+            return;
+        }
+        i3 |= 3072;
+        z2 = z;
+        if ((i3 & 1171) != 1170) {
+            if (i4 == 0) {
+            }
+            if (ComposerKt.isTraceInProgress()) {
+            }
+            float f2 = 12;
+            Modifier modifierM681padding3ABfNKs2 = PaddingKt.m681padding3ABfNKs(BackgroundKt.m236backgroundbw27NRU$default(ClipKt.clip(modifier, RoundedCornerShapeKt.m964RoundedCornerShape0680j_4(Dp.m6299constructorimpl(f2))), Ink.INSTANCE.m6634getSurface0d7_KjU(), null, 2, null), Dp.m6299constructorimpl(f2));
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -483455358, "CC(Column)P(2,3,1)86@4330L61,87@4396L133:Column.kt#2w3rfo");
+            MeasurePolicy measurePolicyColumnMeasurePolicy2 = ColumnKt.columnMeasurePolicy(Arrangement.INSTANCE.getTop(), Alignment.INSTANCE.getStart(), composerStartRestartGroup, 0);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            currentCompositeKeyHash = ComposablesKt.getCurrentCompositeKeyHash(composerStartRestartGroup, 0);
+            CompositionLocalMap currentCompositionLocalMap2 = composerStartRestartGroup.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier2 = ComposedModifierKt.materializeModifier(composerStartRestartGroup, modifierM681padding3ABfNKs2);
+            Function0<ComposeUiNode> constructor2 = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composerStartRestartGroup.getApplier() instanceof Applier)) {
+            }
+            composerStartRestartGroup.startReusableNode();
+            if (!composerStartRestartGroup.getInserting()) {
+            }
+            composerM3333constructorimpl = Updater.m3333constructorimpl(composerStartRestartGroup);
+            Updater.m3340setimpl(composerM3333constructorimpl, measurePolicyColumnMeasurePolicy2, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl, currentCompositionLocalMap2, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            setCompositeKeyHash = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (!composerM3333constructorimpl.getInserting()) {
+                composerM3333constructorimpl.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash));
+                composerM3333constructorimpl.apply(Integer.valueOf(currentCompositeKeyHash), setCompositeKeyHash);
+                Updater.m3340setimpl(composerM3333constructorimpl, modifierMaterializeModifier2, ComposeUiNode.INSTANCE.getSetModifier());
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -384784025, "C88@4444L9:Column.kt#2w3rfo");
+                ColumnScopeInstance columnScopeInstance2 = ColumnScopeInstance.INSTANCE;
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1240535001, "C75@3525L102,76@3636L50:MonitorScreen.kt#woosis");
+                Ink ink2 = Ink.INSTANCE;
+                composer2 = composerStartRestartGroup;
+                TextKt.m2373Text4IGK_g(str4, (Modifier) null, !z4 ? ink2.m6632getRed0d7_KjU() : ink2.m6636getText0d7_KjU(), TextUnitKt.getSp(24), (FontStyle) null, FontWeight.INSTANCE.getBold(), (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer2, ((i3 >> 3) & 14) | 199680, 0, 131026);
+                TextKt.m2373Text4IGK_g(str3, (Modifier) null, Ink.INSTANCE.m6637getTextDim0d7_KjU(), TextUnitKt.getSp(11), (FontStyle) null, (FontWeight) null, (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer2, (i3 & 14) | 3072, 0, 131058);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                composer2.endNode();
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                ComposerKt.sourceInformationMarkerEnd(composer2);
+                if (ComposerKt.isTraceInProgress()) {
+                }
+                z3 = z4;
+            }
+        }
+        scopeUpdateScopeEndRestartGroup = composer2.endRestartGroup();
+        if (scopeUpdateScopeEndRestartGroup == null) {
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -520,14 +684,153 @@ public final class MonitorScreenKt {
     /* JADX WARN: Removed duplicated region for block: B:38:0x00c8  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static final void LogRow(final com.mrnice.pixelscan.LogEntry r28, androidx.compose.runtime.Composer r29, final int r30) {
-        /*
-            Method dump skipped, instructions count: 980
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.mrnice.pixelscan.MonitorScreenKt.LogRow(com.mrnice.pixelscan.LogEntry, androidx.compose.runtime.Composer, int):void");
+    public static final void LogRow(final LogEntry logEntry, Composer composer, final int i) {
+        int i2;
+        Pair pair;
+        Composer composer2;
+        Composer composerStartRestartGroup = composer.startRestartGroup(881095596);
+        ComposerKt.sourceInformation(composerStartRestartGroup, "C(LogRow)89@4058L582,98@4645L57:MonitorScreen.kt#woosis");
+        if ((i & 6) == 0) {
+            i2 = (composerStartRestartGroup.changed(logEntry) ? 4 : 2) | i;
+        } else {
+            i2 = i;
+        }
+        if ((i2 & 3) == 2 && composerStartRestartGroup.getSkipping()) {
+            composerStartRestartGroup.skipToGroupEnd();
+            composer2 = composerStartRestartGroup;
+        } else {
+            if (ComposerKt.isTraceInProgress()) {
+                ComposerKt.traceEventStart(881095596, i2, -1, "com.mrnice.pixelscan.LogRow (MonitorScreen.kt:81)");
+            }
+            String type = logEntry.getType();
+            switch (type.hashCode()) {
+                case -1154529463:
+                    if (!type.equals("joined")) {
+                        pair = TuplesKt.to(CircleKt.getCircle(Icons.Filled.INSTANCE), Color.m3830boximpl(Ink.INSTANCE.m6637getTextDim0d7_KjU()));
+                        break;
+                    } else {
+                        pair = TuplesKt.to(LoginKt.getLogin(Icons.Filled.INSTANCE), Color.m3830boximpl(Ink.INSTANCE.m6636getText0d7_KjU()));
+                        break;
+                    }
+                case -928317540:
+                    if (type.equals("ip_changed")) {
+                        pair = TuplesKt.to(SwapHorizKt.getSwapHoriz(Icons.Filled.INSTANCE), Color.m3830boximpl(Ink.INSTANCE.m6637getTextDim0d7_KjU()));
+                        break;
+                    }
+                    break;
+                case 108960:
+                    if (type.equals("new")) {
+                        pair = TuplesKt.to(FiberNewKt.getFiberNew(Icons.Filled.INSTANCE), Color.m3830boximpl(Ink.INSTANCE.m6632getRed0d7_KjU()));
+                        break;
+                    }
+                    break;
+                case 3317767:
+                    if (type.equals("left")) {
+                        pair = TuplesKt.to(LogoutKt.getLogout(Icons.Filled.INSTANCE), Color.m3830boximpl(Ink.INSTANCE.m6637getTextDim0d7_KjU()));
+                        break;
+                    }
+                    break;
+            }
+            ImageVector imageVector = (ImageVector) pair.component1();
+            long jM3850unboximpl = ((Color) pair.component2()).m3850unboximpl();
+            Modifier modifierM683paddingVpY3zN4$default = PaddingKt.m683paddingVpY3zN4$default(SizeKt.fillMaxWidth$default(Modifier.INSTANCE, 0.0f, 1, null), 0.0f, Dp.m6299constructorimpl(10), 1, null);
+            Alignment.Vertical centerVertically = Alignment.INSTANCE.getCenterVertically();
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, 693286680, "CC(Row)P(2,1,3)99@5018L58,100@5081L130:Row.kt#2w3rfo");
+            MeasurePolicy measurePolicyRowMeasurePolicy = RowKt.rowMeasurePolicy(Arrangement.INSTANCE.getStart(), centerVertically, composerStartRestartGroup, 48);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash = ComposablesKt.getCurrentCompositeKeyHash(composerStartRestartGroup, 0);
+            CompositionLocalMap currentCompositionLocalMap = composerStartRestartGroup.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier = ComposedModifierKt.materializeModifier(composerStartRestartGroup, modifierM683paddingVpY3zN4$default);
+            Function0<ComposeUiNode> constructor = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composerStartRestartGroup.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composerStartRestartGroup.startReusableNode();
+            if (composerStartRestartGroup.getInserting()) {
+                composerStartRestartGroup.createNode(constructor);
+            } else {
+                composerStartRestartGroup.useNode();
+            }
+            Composer composerM3333constructorimpl = Updater.m3333constructorimpl(composerStartRestartGroup);
+            Updater.m3340setimpl(composerM3333constructorimpl, measurePolicyRowMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl, currentCompositionLocalMap, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl.rememberedValue(), Integer.valueOf(currentCompositeKeyHash))) {
+                composerM3333constructorimpl.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash));
+                composerM3333constructorimpl.apply(Integer.valueOf(currentCompositeKeyHash), setCompositeKeyHash);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl, modifierMaterializeModifier, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -407840262, "C101@5126L9:Row.kt#2w3rfo");
+            RowScopeInstance rowScopeInstance = RowScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, 802944964, "C90@4171L64,91@4244L29,92@4282L284,96@4575L59:MonitorScreen.kt#woosis");
+            IconKt.m1830Iconww6aTOc(imageVector, logEntry.getType(), SizeKt.m726size3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(20)), jM3850unboximpl, composerStartRestartGroup, 384, 0);
+            SpacerKt.Spacer(SizeKt.m731width3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(12)), composerStartRestartGroup, 6);
+            Modifier modifierWeight$default = RowScope.weight$default(rowScopeInstance, Modifier.INSTANCE, 1.0f, false, 2, null);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -483455358, "CC(Column)P(2,3,1)86@4330L61,87@4396L133:Column.kt#2w3rfo");
+            MeasurePolicy measurePolicyColumnMeasurePolicy = ColumnKt.columnMeasurePolicy(Arrangement.INSTANCE.getTop(), Alignment.INSTANCE.getStart(), composerStartRestartGroup, 0);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash2 = ComposablesKt.getCurrentCompositeKeyHash(composerStartRestartGroup, 0);
+            CompositionLocalMap currentCompositionLocalMap2 = composerStartRestartGroup.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier2 = ComposedModifierKt.materializeModifier(composerStartRestartGroup, modifierWeight$default);
+            Function0<ComposeUiNode> constructor2 = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composerStartRestartGroup.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composerStartRestartGroup.startReusableNode();
+            if (composerStartRestartGroup.getInserting()) {
+                composerStartRestartGroup.createNode(constructor2);
+            } else {
+                composerStartRestartGroup.useNode();
+            }
+            Composer composerM3333constructorimpl2 = Updater.m3333constructorimpl(composerStartRestartGroup);
+            Updater.m3340setimpl(composerM3333constructorimpl2, measurePolicyColumnMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl2, currentCompositionLocalMap2, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash2 = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl2.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl2.rememberedValue(), Integer.valueOf(currentCompositeKeyHash2))) {
+                composerM3333constructorimpl2.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash2));
+                composerM3333constructorimpl2.apply(Integer.valueOf(currentCompositeKeyHash2), setCompositeKeyHash2);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl2, modifierMaterializeModifier2, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -384784025, "C88@4444L9:Column.kt#2w3rfo");
+            ColumnScopeInstance columnScopeInstance = ColumnScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -474303723, "C93@4324L97,94@4434L122:MonitorScreen.kt#woosis");
+            String name = logEntry.getName();
+            if (name.length() == 0) {
+                name = logEntry.getIp();
+            }
+            composer2 = composerStartRestartGroup;
+            TextKt.m2373Text4IGK_g(name, (Modifier) null, Ink.INSTANCE.m6636getText0d7_KjU(), TextUnitKt.getSp(15), (FontStyle) null, FontWeight.INSTANCE.getMedium(), (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer2, 199680, 0, 131026);
+            TextKt.m2373Text4IGK_g(logEntry.getDetail() + (logEntry.getIp().length() > 0 ? "  ·  " + logEntry.getIp() : ""), (Modifier) null, Ink.INSTANCE.m6637getTextDim0d7_KjU(), TextUnitKt.getSp(12), (FontStyle) null, (FontWeight) null, (FontFamily) ThemeKt.getMono(), 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer2, 3072, 0, 130994);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            composer2.endNode();
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            TextKt.m2373Text4IGK_g(timeAgo(logEntry.getT()), (Modifier) null, Ink.INSTANCE.m6638getTextFaint0d7_KjU(), TextUnitKt.getSp(11), (FontStyle) null, (FontWeight) null, (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer2, 3072, 0, 131058);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            composer2.endNode();
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            DividerKt.m1752HorizontalDivider9IZ8Weo(null, Dp.m6299constructorimpl(1), Ink.INSTANCE.m6629getHairline0d7_KjU(), composer2, 48, 1);
+            if (ComposerKt.isTraceInProgress()) {
+                ComposerKt.traceEventEnd();
+            }
+        }
+        ScopeUpdateScope scopeUpdateScopeEndRestartGroup = composer2.endRestartGroup();
+        if (scopeUpdateScopeEndRestartGroup != null) {
+            scopeUpdateScopeEndRestartGroup.updateScope(new Function2() { // from class: com.mrnice.pixelscan.MonitorScreenKt$$ExternalSyntheticLambda7
+                @Override // kotlin.jvm.functions.Function2
+                public final Object invoke(Object obj, Object obj2) {
+                    return MonitorScreenKt.LogRow$lambda$24(logEntry, i, (Composer) obj, ((Integer) obj2).intValue());
+                }
+            });
+        }
     }
 
     private static final boolean isToday(long j) {

@@ -1,7 +1,9 @@
 # Build output
 build/
 .gradle/
+.kotlin/
 target/
+android/app/src/main/jniLibs/
 *.aab
 *.apk
 !reference/**/*.apk

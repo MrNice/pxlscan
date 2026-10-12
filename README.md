@@ -1,35 +1,118 @@
 # PxLScan
 
-LAN scanner for Android: finds the devices on your network, pings them, checks their
-services, and watches for devices that join or leave. Kotlin + Jetpack Compose over a Rust
-core built with the NDK.
+> **[Join the PxLScan test](https://appdistribution.firebase.dev/i/4cc79c7bd84a9823)** to get the app and every update as it ships. Sign in
+> with a Google account and install from the tester app. Prefer no sign-in? The APK is on the
+> [Releases](../../releases) page.
 
-Package: `com.pixelicious.pxlscan`. Target: Google Play (personal developer account).
+A LAN scanner for Android. It finds the devices on your Wi-Fi, works out what each one is, and can
+watch the network in the background and tell you when something new shows up.
 
-## Status
+No account, no ads, no analytics, no server. The app talks to the devices it is scanning and to
+your DNS server, and nothing else.
 
-This repo is a rebuild. The original app, **PixelScan 0.1.1** (`com.mrnice.pixelscan`), was
-built on 2026-09-30 in a Claude cloud session that no longer exists, from a folder that was
-never under git. Only the APK on the captain's phone survived.
+<!-- Screenshots: drop PNGs in docs/screenshots/ with these names. -->
+<p>
+  <img src="docs/screenshots/devices.png" width="240" alt="Devices list">
+  <img src="docs/screenshots/radar.png" width="240" alt="Radar view">
+  <img src="docs/screenshots/detail.png" width="240" alt="Device detail">
+  <img src="docs/screenshots/monitor.png" width="240" alt="Monitor">
+</p>
 
-`reference/pixelscan-0.1.1/` holds what was recovered from that APK on 2026-10-11:
+## Install
 
-| Path | What it is |
-|---|---|
-| `pixelscan-0.1.1.apk` | The original APK, pulled from the phone with `adb` |
-| `kotlin-decompiled/` | jadx 1.5.3 output for `com.mrnice.pixelscan`. Not obfuscated, so names are real. Java syntax, not Kotlin |
-| `resources/` | Decoded manifest and resources, including the launcher icon (`res/mipmap-*`) |
+Two ways, both Android 8.0 or newer:
 
-The Rust core (`libpixelscan_core.so`) cannot be decompiled usefully. What is known about it:
+- **Join the test.** The [invite link](https://appdistribution.firebase.dev/i/4cc79c7bd84a9823) signs you up as a tester. New builds then arrive
+  through the tester app, with no download each time.
+- **Download the APK** from the [Releases](../../releases) page and open it on your phone. Android
+  asks you to allow installs from your browser or file manager the first time.
 
-- JNI exports on `com.mrnice.pixelscan.Native`: `startScan`, `poll`, `cancel`, `ping`, `monitorDiff`.
-- Modules: `discover`, `scan`, `icmp`, `dns`, `http`, `monitor`, `model`.
-- Crates: `tokio`, `serde_json`, `socket2`, `jni`.
+## What it does
 
-Reference material is read-only. Rebuilt code goes in `android/` and `android/rust/`.
+### Devices
 
-## Signing
+- **One tap scans the network.** A scan of a home network takes about 10 to 20 seconds. Devices
+  appear as they answer, so the list fills in while the scan runs.
+- **Names, not just addresses.** Each device gets the best name it gives out: its Bonjour name, its
+  Windows name, its UPnP name, or its name in your router's DNS.
+- **Sorted into kinds.** Phone, tablet, computer, server or Pi, TV or streamer, speaker, game
+  console, printer, camera, NAS, smart home, watch, router, network gear. The maker shows next to
+  the kind when the device says who made it.
+- **List or radar.** The top bar switches between a list and a radar sweep of the same devices.
+- **Search** by name, IP or maker.
+- Your phone is marked `THIS PHONE` and your router `ROUTER`.
 
-The original APK was signed with TrowlLord's committed dev key (`CN=TrowlLord Dev`). That key
-and its password are public, so **PxLScan never uses it.** The Play upload key lives outside
-this repo and is never committed.
+### Device detail
+
+Tap a device to open it.
+
+- **Live ping.** Start and stop a running ping to the device and watch its latency.
+- **Identity.** Every name the device answered to: mDNS / Bonjour, NetBIOS, DNS, model, maker,
+  UPnP UUID, and the server header and page title of its web interface.
+- **Open ports and services**, with common ports labelled (`631·ipp`, `8009·cast`, `9100·print`).
+- **Signal.** How the device was found, its latency, and its TTL with a guess at the OS family.
+- **Open web UI** when the device serves a web page, and **Copy IP**.
+- **Your own labels.** The pencil sets a nickname and a type. The star watches the device.
+  **Mark known** tells PxLScan you trust it.
+
+Labels are saved per network, so the same IP at home and at work are different devices.
+
+### Monitor
+
+- **Background checks.** Settings ▸ Monitor mode scans every 15, 30 or 60 minutes while the
+  phone is on an unmetered network such as Wi-Fi, and keeps running after a reboot.
+- **Alerts.** A notification when a new device joins. Starred devices also alert when they join or
+  leave, if Settings ▸ Alert on watched devices is on.
+- **Activity log.** The Monitor tab shows devices online now, known devices, new devices today,
+  and a log of joins, leaves, IP changes and new arrivals.
+
+## How it finds devices
+
+Android does not let apps read the ARP table, so PxLScan asks the network instead. It needs no root.
+
+- An ICMP ping sweep of your subnet.
+- TCP connections to a short list of common ports. An open port and a refused connection both
+  prove a device is there.
+- mDNS / Bonjour queries for about 30 service types (AirPlay, Chromecast, printers, HomeKit,
+  Matter, Sonos, SMB, SSH and more).
+- SSDP / UPnP discovery, then the device's description for its name, maker and model.
+- NetBIOS name queries and reverse DNS against your router.
+- An HTTP request to devices with a web port, for the server name and page title.
+
+The scanning runs in a Rust core. The app is Kotlin and Jetpack Compose.
+
+## Limits
+
+- **MAC addresses are usually missing.** Without the ARP table, PxLScan shows a MAC only when a
+  device announces its own.
+- **Some networks block it.** Guest networks and some mesh or business routers stop devices from
+  seeing each other. If a scan finds only your phone, the app says so and offers its diagnostics.
+- **Background checks are 15 minutes apart at most.** That is the shortest interval Android allows
+  for a background job.
+- **A VPN can hide the LAN.** Some VPNs send all traffic, including local traffic, through the
+  tunnel. Turn the VPN off or allow local network access in its settings.
+
+## Privacy
+
+PxLScan has no server and no analytics. It sends packets to addresses on your own subnet, and
+reverse-DNS lookups for those addresses to the DNS servers your phone uses. That is usually your
+router. If you set a public DNS server such as 1.1.1.1, those lookups go there. Scan results,
+labels and the activity log stay in the app's private storage on your phone.
+
+## Building
+
+Needs JDK 17, the Android SDK (API 35) with NDK 27.2, Rust with the `aarch64-linux-android` and
+`x86_64-linux-android` targets, and `cargo install cargo-ndk`.
+
+```sh
+cd android
+./gradlew assembleDebug       # builds the Rust core with cargo-ndk first
+# → app/build/outputs/apk/debug/app-debug.apk
+```
+
+The Rust core lives in `android/rust`. Its tests run on the host: `cargo test` in that folder.
+The interface between the app and the core is in [docs/CORE-CONTRACT.md](docs/CORE-CONTRACT.md).
+
+## Licence
+
+Copyright 2026 Nicholas van de Walle. Licensed under the [Apache License 2.0](LICENSE).

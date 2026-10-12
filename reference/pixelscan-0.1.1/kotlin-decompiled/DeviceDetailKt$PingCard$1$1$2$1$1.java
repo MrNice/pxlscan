@@ -1,14 +1,21 @@
 package com.mrnice.pixelscan;
 
 import androidx.compose.runtime.MutableState;
+import java.util.Collection;
 import java.util.List;
 import kotlin.Metadata;
+import kotlin.ResultKt;
 import kotlin.Unit;
+import kotlin.collections.CollectionsKt;
 import kotlin.coroutines.Continuation;
+import kotlin.coroutines.intrinsics.IntrinsicsKt;
+import kotlin.coroutines.jvm.internal.Boxing;
 import kotlin.coroutines.jvm.internal.DebugMetadata;
 import kotlin.coroutines.jvm.internal.SuspendLambda;
+import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function2;
 import kotlinx.coroutines.CoroutineScope;
+import kotlinx.coroutines.DelayKt;
 
 /* compiled from: DeviceDetail.kt */
 @Metadata(d1 = {"\u0000\n\n\u0000\n\u0002\u0010\u0002\n\u0002\u0018\u0002\u0010\u0000\u001a\u00020\u0001*\u00020\u0002H\n"}, d2 = {"<anonymous>", "", "Lkotlinx/coroutines/CoroutineScope;"}, k = 3, mv = {2, 2, 0}, xi = 48)
@@ -44,75 +51,52 @@ final class DeviceDetailKt$PingCard$1$1$2$1$1 extends SuspendLambda implements F
     @Override // kotlin.coroutines.jvm.internal.BaseContinuationImpl
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public final java.lang.Object invokeSuspend(java.lang.Object r7) {
-        /*
-            r6 = this;
-            java.lang.Object r0 = kotlin.coroutines.intrinsics.IntrinsicsKt.getCOROUTINE_SUSPENDED()
-            int r1 = r6.label
-            r2 = 2
-            r3 = 1
-            if (r1 == 0) goto L1b
-            if (r1 == r3) goto L17
-            if (r1 != r2) goto Lf
-            goto L1b
-        Lf:
-            java.lang.IllegalStateException r7 = new java.lang.IllegalStateException
-            java.lang.String r0 = "call to 'resume' before 'invoke' with coroutine"
-            r7.<init>(r0)
-            throw r7
-        L17:
-            kotlin.ResultKt.throwOnFailure(r7)
-            goto L47
-        L1b:
-            kotlin.ResultKt.throwOnFailure(r7)
-        L1e:
-            androidx.compose.runtime.MutableState<java.lang.Boolean> r7 = r6.$running$delegate
-            boolean r7 = com.mrnice.pixelscan.DeviceDetailKt.access$PingCard$lambda$57(r7)
-            if (r7 == 0) goto L76
-            androidx.compose.runtime.MutableState<java.util.List<java.lang.Float>> r7 = r6.$samples$delegate
-            java.util.List r7 = com.mrnice.pixelscan.DeviceDetailKt.access$PingCard$lambda$54(r7)
-            int r7 = r7.size()
-            r1 = 60
-            if (r7 >= r1) goto L76
-            java.lang.String r7 = r6.$ip
-            com.mrnice.pixelscan.DeviceDetailKt$PingCard$1$1$2$1$1$$ExternalSyntheticLambda0 r1 = new com.mrnice.pixelscan.DeviceDetailKt$PingCard$1$1$2$1$1$$ExternalSyntheticLambda0
-            r1.<init>()
-            r7 = r6
-            kotlin.coroutines.Continuation r7 = (kotlin.coroutines.Continuation) r7
-            r6.label = r3
-            java.lang.Object r7 = com.mrnice.pixelscan.DeviceDetailKt.withContextIO(r1, r7)
-            if (r7 != r0) goto L47
-            goto L75
-        L47:
-            java.lang.Number r7 = (java.lang.Number) r7
-            float r7 = r7.floatValue()
-            androidx.compose.runtime.MutableState<java.util.List<java.lang.Float>> r1 = r6.$samples$delegate
-            java.util.List r4 = com.mrnice.pixelscan.DeviceDetailKt.access$PingCard$lambda$54(r1)
-            java.util.Collection r4 = (java.util.Collection) r4
-            java.lang.Float r5 = kotlin.coroutines.jvm.internal.Boxing.boxFloat(r7)
-            java.util.List r4 = kotlin.collections.CollectionsKt.plus(r4, r5)
-            r5 = 40
-            java.util.List r4 = kotlin.collections.CollectionsKt.takeLast(r4, r5)
-            com.mrnice.pixelscan.DeviceDetailKt.access$PingCard$lambda$55(r1, r4)
-            r1 = r6
-            kotlin.coroutines.Continuation r1 = (kotlin.coroutines.Continuation) r1
-            r6.F$0 = r7
-            r6.label = r2
-            r4 = 900(0x384, double:4.447E-321)
-            java.lang.Object r7 = kotlinx.coroutines.DelayKt.delay(r4, r1)
-            if (r7 != r0) goto L1e
-        L75:
-            return r0
-        L76:
-            androidx.compose.runtime.MutableState<java.lang.Boolean> r7 = r6.$running$delegate
-            r0 = 0
-            com.mrnice.pixelscan.DeviceDetailKt.access$PingCard$lambda$58(r7, r0)
-            kotlin.Unit r7 = kotlin.Unit.INSTANCE
-            return r7
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.mrnice.pixelscan.DeviceDetailKt$PingCard$1$1$2$1$1.invokeSuspend(java.lang.Object):java.lang.Object");
+    public final Object invokeSuspend(Object obj) {
+        Object coroutine_suspended = IntrinsicsKt.getCOROUTINE_SUSPENDED();
+        int i = this.label;
+        if (i != 0) {
+            if (i == 1) {
+                ResultKt.throwOnFailure(obj);
+                float fFloatValue = ((Number) obj).floatValue();
+                MutableState<List<Float>> mutableState = this.$samples$delegate;
+                mutableState.setValue(CollectionsKt.takeLast(CollectionsKt.plus((Collection<? extends Float>) DeviceDetailKt.PingCard$lambda$54(mutableState), Boxing.boxFloat(fFloatValue)), 40));
+                this.F$0 = fFloatValue;
+                this.label = 2;
+                if (DelayKt.delay(900L, this) != coroutine_suspended) {
+                    if (DeviceDetailKt.PingCard$lambda$57(this.$running$delegate) || DeviceDetailKt.PingCard$lambda$54(this.$samples$delegate).size() >= 60) {
+                        DeviceDetailKt.PingCard$lambda$58(this.$running$delegate, false);
+                        return Unit.INSTANCE;
+                    }
+                    final String str = this.$ip;
+                    this.label = 1;
+                    obj = DeviceDetailKt.withContextIO(new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$PingCard$1$1$2$1$1$$ExternalSyntheticLambda0
+                        @Override // kotlin.jvm.functions.Function0
+                        public final Object invoke() {
+                            return Float.valueOf(DeviceDetailKt$PingCard$1$1$2$1$1.invokeSuspend$lambda$0(str));
+                        }
+                    }, this);
+                    if (obj != coroutine_suspended) {
+                        float fFloatValue2 = ((Number) obj).floatValue();
+                        MutableState<List<Float>> mutableState2 = this.$samples$delegate;
+                        mutableState2.setValue(CollectionsKt.takeLast(CollectionsKt.plus((Collection<? extends Float>) DeviceDetailKt.PingCard$lambda$54(mutableState2), Boxing.boxFloat(fFloatValue2)), 40));
+                        this.F$0 = fFloatValue2;
+                        this.label = 2;
+                        if (DelayKt.delay(900L, this) != coroutine_suspended) {
+                        }
+                    }
+                }
+                return coroutine_suspended;
+            }
+            if (i != 2) {
+                throw new IllegalStateException("call to 'resume' before 'invoke' with coroutine");
+            }
+        }
+        ResultKt.throwOnFailure(obj);
+        if (DeviceDetailKt.PingCard$lambda$57(this.$running$delegate)) {
+        }
+        DeviceDetailKt.PingCard$lambda$58(this.$running$delegate, false);
+        return Unit.INSTANCE;
     }
 
     /* JADX INFO: Access modifiers changed from: private */

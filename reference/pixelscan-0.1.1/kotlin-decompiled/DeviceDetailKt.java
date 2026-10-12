@@ -9,6 +9,7 @@ import androidx.autofill.HintConstants;
 import androidx.compose.foundation.BackgroundKt;
 import androidx.compose.foundation.CanvasKt;
 import androidx.compose.foundation.ClickableKt;
+import androidx.compose.foundation.ScrollKt;
 import androidx.compose.foundation.interaction.MutableInteractionSource;
 import androidx.compose.foundation.layout.Arrangement;
 import androidx.compose.foundation.layout.BoxKt;
@@ -27,8 +28,11 @@ import androidx.compose.foundation.shape.RoundedCornerShapeKt;
 import androidx.compose.foundation.text.KeyboardActions;
 import androidx.compose.foundation.text.KeyboardOptions;
 import androidx.compose.material.icons.Icons;
+import androidx.compose.material.icons.filled.ContentCopyKt;
+import androidx.compose.material.icons.filled.LanguageKt;
 import androidx.compose.material.icons.filled.StarBorderKt;
 import androidx.compose.material.icons.filled.StarKt;
+import androidx.compose.material.icons.filled.VerifiedUserKt;
 import androidx.compose.material3.AndroidAlertDialog_androidKt;
 import androidx.compose.material3.AndroidMenu_androidKt;
 import androidx.compose.material3.AppBarKt;
@@ -46,6 +50,8 @@ import androidx.compose.runtime.ComposablesKt;
 import androidx.compose.runtime.Composer;
 import androidx.compose.runtime.ComposerKt;
 import androidx.compose.runtime.CompositionLocalMap;
+import androidx.compose.runtime.CompositionScopedCoroutineScopeCanceller;
+import androidx.compose.runtime.EffectsKt;
 import androidx.compose.runtime.MutableState;
 import androidx.compose.runtime.ProvidableCompositionLocal;
 import androidx.compose.runtime.RecomposeScopeImplKt;
@@ -79,6 +85,7 @@ import androidx.compose.ui.unit.Dp;
 import androidx.compose.ui.unit.TextUnitKt;
 import androidx.profileinstaller.ProfileVerifier;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -89,6 +96,7 @@ import kotlin.ResultKt;
 import kotlin.Unit;
 import kotlin.collections.CollectionsKt;
 import kotlin.coroutines.Continuation;
+import kotlin.coroutines.EmptyCoroutineContext;
 import kotlin.coroutines.intrinsics.IntrinsicsKt;
 import kotlin.coroutines.jvm.internal.DebugMetadata;
 import kotlin.coroutines.jvm.internal.SuspendLambda;
@@ -97,6 +105,7 @@ import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import kotlin.jvm.functions.Function3;
 import kotlin.jvm.internal.Intrinsics;
+import kotlin.math.MathKt;
 import kotlin.ranges.RangesKt;
 import kotlin.text.StringsKt;
 import kotlinx.coroutines.BuildersKt;
@@ -450,14 +459,640 @@ public final class DeviceDetailKt {
     /* JADX WARN: Removed duplicated region for block: B:208:0x0b50  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    public static final kotlin.Unit DeviceDetailScreen$lambda$46(com.mrnice.pixelscan.Device r48, final com.mrnice.pixelscan.Row r49, final androidx.compose.runtime.MutableState r50, android.content.Context r51, final com.mrnice.pixelscan.ScanViewModel r52, androidx.compose.foundation.layout.PaddingValues r53, androidx.compose.runtime.Composer r54, int r55) {
-        /*
-            Method dump skipped, instructions count: 2902
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.mrnice.pixelscan.DeviceDetailKt.DeviceDetailScreen$lambda$46(com.mrnice.pixelscan.Device, com.mrnice.pixelscan.Row, androidx.compose.runtime.MutableState, android.content.Context, com.mrnice.pixelscan.ScanViewModel, androidx.compose.foundation.layout.PaddingValues, androidx.compose.runtime.Composer, int):kotlin.Unit");
+    public static final Unit DeviceDetailScreen$lambda$46(Device device, final Row row, final MutableState mutableState, Context context, final ScanViewModel scanViewModel, PaddingValues pad, Composer composer, int i) {
+        String str;
+        final Device device2;
+        final Context context2;
+        boolean zChangedInstance;
+        Object objRememberedValue;
+        boolean zChangedInstance2;
+        Object objRememberedValue2;
+        String mdnsName;
+        String netbiosName;
+        String dnsName;
+        String model;
+        String vendor;
+        String mac;
+        String ssdpUuid;
+        String httpServer;
+        String httpTitle;
+        int i2;
+        float f;
+        ArrayList arrayList;
+        int i3;
+        String strJoinToString$default;
+        Float rttMs;
+        Integer ttl;
+        Intrinsics.checkNotNullParameter(pad, "pad");
+        ComposerKt.sourceInformation(composer, "C50@2160L21,50@2102L3875:DeviceDetail.kt#woosis");
+        int i4 = (i & 6) == 0 ? i | (composer.changed(pad) ? 4 : 2) : i;
+        if ((i4 & 19) == 18 && composer.getSkipping()) {
+            composer.skipToGroupEnd();
+        } else {
+            if (ComposerKt.isTraceInProgress()) {
+                ComposerKt.traceEventStart(1319728975, i4, -1, "com.mrnice.pixelscan.DeviceDetailScreen.<anonymous> (DeviceDetail.kt:50)");
+            }
+            Modifier modifierVerticalScroll$default = ScrollKt.verticalScroll$default(SizeKt.fillMaxSize$default(PaddingKt.padding(Modifier.INSTANCE, pad), 0.0f, 1, null), ScrollKt.rememberScrollState(0, composer, 0, 1), false, null, false, 14, null);
+            ComposerKt.sourceInformationMarkerStart(composer, -483455358, "CC(Column)P(2,3,1)86@4330L61,87@4396L133:Column.kt#2w3rfo");
+            MeasurePolicy measurePolicyColumnMeasurePolicy = ColumnKt.columnMeasurePolicy(Arrangement.INSTANCE.getTop(), Alignment.INSTANCE.getStart(), composer, 0);
+            ComposerKt.sourceInformationMarkerStart(composer, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash = ComposablesKt.getCurrentCompositeKeyHash(composer, 0);
+            CompositionLocalMap currentCompositionLocalMap = composer.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier = ComposedModifierKt.materializeModifier(composer, modifierVerticalScroll$default);
+            Function0<ComposeUiNode> constructor = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composer, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composer.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composer.startReusableNode();
+            if (composer.getInserting()) {
+                composer.createNode(constructor);
+            } else {
+                composer.useNode();
+            }
+            Composer composerM3333constructorimpl = Updater.m3333constructorimpl(composer);
+            Updater.m3340setimpl(composerM3333constructorimpl, measurePolicyColumnMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl, currentCompositionLocalMap, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl.rememberedValue(), Integer.valueOf(currentCompositeKeyHash))) {
+                composerM3333constructorimpl.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash));
+                composerM3333constructorimpl.apply(Integer.valueOf(currentCompositeKeyHash), setCompositeKeyHash);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl, modifierMaterializeModifier, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composer, -384784025, "C88@4444L9:Column.kt#2w3rfo");
+            ColumnScopeInstance columnScopeInstance = ColumnScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composer, -1140001691, "C52@2230L835,65@3111L14,68@3167L1266,88@4469L24,89@4506L37,109@5639L22,110@5674L91,113@5937L30:DeviceDetail.kt#woosis");
+            float f2 = 16;
+            Modifier modifierM681padding3ABfNKs = PaddingKt.m681padding3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(f2));
+            Alignment.Vertical centerVertically = Alignment.INSTANCE.getCenterVertically();
+            ComposerKt.sourceInformationMarkerStart(composer, 693286680, "CC(Row)P(2,1,3)99@5018L58,100@5081L130:Row.kt#2w3rfo");
+            MeasurePolicy measurePolicyRowMeasurePolicy = RowKt.rowMeasurePolicy(Arrangement.INSTANCE.getStart(), centerVertically, composer, 48);
+            ComposerKt.sourceInformationMarkerStart(composer, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash2 = ComposablesKt.getCurrentCompositeKeyHash(composer, 0);
+            CompositionLocalMap currentCompositionLocalMap2 = composer.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier2 = ComposedModifierKt.materializeModifier(composer, modifierM681padding3ABfNKs);
+            Function0<ComposeUiNode> constructor2 = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composer, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composer.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composer.startReusableNode();
+            if (composer.getInserting()) {
+                composer.createNode(constructor2);
+            } else {
+                composer.useNode();
+            }
+            Composer composerM3333constructorimpl2 = Updater.m3333constructorimpl(composer);
+            Updater.m3340setimpl(composerM3333constructorimpl2, measurePolicyRowMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl2, currentCompositionLocalMap2, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash2 = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl2.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl2.rememberedValue(), Integer.valueOf(currentCompositeKeyHash2))) {
+                composerM3333constructorimpl2.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash2));
+                composerM3333constructorimpl2.apply(Integer.valueOf(currentCompositeKeyHash2), setCompositeKeyHash2);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl2, modifierMaterializeModifier2, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composer, -407840262, "C101@5126L9:Row.kt#2w3rfo");
+            RowScopeInstance rowScopeInstance = RowScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composer, 976407908, "C53@2325L261,56@2603L29,57@2649L287,61@2974L18,61@2953L98:DeviceDetail.kt#woosis");
+            float f3 = 12;
+            Modifier modifierM236backgroundbw27NRU$default = BackgroundKt.m236backgroundbw27NRU$default(ClipKt.clip(SizeKt.m726size3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(56)), RoundedCornerShapeKt.m964RoundedCornerShape0680j_4(Dp.m6299constructorimpl(f3))), Ink.INSTANCE.m6635getSurfaceHi0d7_KjU(), null, 2, null);
+            Alignment center = Alignment.INSTANCE.getCenter();
+            ComposerKt.sourceInformationMarkerStart(composer, 733328855, "CC(Box)P(2,1,3)72@3384L130:Box.kt#2w3rfo");
+            MeasurePolicy measurePolicyMaybeCachedBoxMeasurePolicy = BoxKt.maybeCachedBoxMeasurePolicy(center, false);
+            ComposerKt.sourceInformationMarkerStart(composer, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash3 = ComposablesKt.getCurrentCompositeKeyHash(composer, 0);
+            CompositionLocalMap currentCompositionLocalMap3 = composer.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier3 = ComposedModifierKt.materializeModifier(composer, modifierM236backgroundbw27NRU$default);
+            Function0<ComposeUiNode> constructor3 = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composer, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composer.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composer.startReusableNode();
+            if (composer.getInserting()) {
+                composer.createNode(constructor3);
+            } else {
+                composer.useNode();
+            }
+            Composer composerM3333constructorimpl3 = Updater.m3333constructorimpl(composer);
+            Updater.m3340setimpl(composerM3333constructorimpl3, measurePolicyMaybeCachedBoxMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl3, currentCompositionLocalMap3, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash3 = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl3.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl3.rememberedValue(), Integer.valueOf(currentCompositeKeyHash3))) {
+                composerM3333constructorimpl3.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash3));
+                composerM3333constructorimpl3.apply(Integer.valueOf(currentCompositeKeyHash3), setCompositeKeyHash3);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl3, modifierMaterializeModifier3, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composer, -2146769399, "C73@3429L9:Box.kt#2w3rfo");
+            BoxScopeInstance boxScopeInstance = BoxScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composer, -626733411, "C54@2449L119:DeviceDetail.kt#woosis");
+            IconKt.m1830Iconww6aTOc(Kinds.INSTANCE.icon(row.getKind()), row.getKind(), SizeKt.m726size3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(30)), device.isGateway() ? Ink.INSTANCE.m6632getRed0d7_KjU() : Ink.INSTANCE.m6637getTextDim0d7_KjU(), composer, 384, 0);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            composer.endNode();
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            SpacerKt.Spacer(SizeKt.m731width3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(14)), composer, 6);
+            Modifier modifierWeight$default = RowScope.weight$default(rowScopeInstance, Modifier.INSTANCE, 1.0f, false, 2, null);
+            ComposerKt.sourceInformationMarkerStart(composer, -483455358, "CC(Column)P(2,3,1)86@4330L61,87@4396L133:Column.kt#2w3rfo");
+            MeasurePolicy measurePolicyColumnMeasurePolicy2 = ColumnKt.columnMeasurePolicy(Arrangement.INSTANCE.getTop(), Alignment.INSTANCE.getStart(), composer, 0);
+            ComposerKt.sourceInformationMarkerStart(composer, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash4 = ComposablesKt.getCurrentCompositeKeyHash(composer, 0);
+            CompositionLocalMap currentCompositionLocalMap4 = composer.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier4 = ComposedModifierKt.materializeModifier(composer, modifierWeight$default);
+            Function0<ComposeUiNode> constructor4 = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composer, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composer.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composer.startReusableNode();
+            if (composer.getInserting()) {
+                composer.createNode(constructor4);
+            } else {
+                composer.useNode();
+            }
+            Composer composerM3333constructorimpl4 = Updater.m3333constructorimpl(composer);
+            Updater.m3340setimpl(composerM3333constructorimpl4, measurePolicyColumnMeasurePolicy2, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl4, currentCompositionLocalMap4, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash4 = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl4.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl4.rememberedValue(), Integer.valueOf(currentCompositeKeyHash4))) {
+                composerM3333constructorimpl4.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash4));
+                composerM3333constructorimpl4.apply(Integer.valueOf(currentCompositeKeyHash4), setCompositeKeyHash4);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl4, modifierMaterializeModifier4, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composer, -384784025, "C88@4444L9:Column.kt#2w3rfo");
+            ColumnScopeInstance columnScopeInstance2 = ColumnScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composer, 1957390409, "C58@2699L95,59@2815L103:DeviceDetail.kt#woosis");
+            TextKt.m2373Text4IGK_g(device.getIp(), (Modifier) null, Ink.INSTANCE.m6636getText0d7_KjU(), TextUnitKt.getSp(20), (FontStyle) null, FontWeight.INSTANCE.getBold(), (FontFamily) ThemeKt.getMono(), 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer, 1772928, 0, 130962);
+            String strLabel = Kinds.INSTANCE.label(row.getKind());
+            String vendor2 = device.getVendor();
+            if (vendor2 == null || (str = " · " + vendor2) == null) {
+                str = "";
+            }
+            TextKt.m2373Text4IGK_g(strLabel + str, (Modifier) null, Ink.INSTANCE.m6637getTextDim0d7_KjU(), TextUnitKt.getSp(14), (FontStyle) null, (FontWeight) null, (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer, 3456, 0, 131058);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            composer.endNode();
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            ComposerKt.sourceInformationMarkerStart(composer, 1971179739, "CC(remember):DeviceDetail.kt#9igjgp");
+            Object objRememberedValue3 = composer.rememberedValue();
+            if (objRememberedValue3 == Composer.INSTANCE.getEmpty()) {
+                objRememberedValue3 = new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda23
+                    @Override // kotlin.jvm.functions.Function0
+                    public final Object invoke() {
+                        return DeviceDetailKt.DeviceDetailScreen$lambda$46$lambda$45$lambda$16$lambda$15$lambda$14(mutableState);
+                    }
+                };
+                composer.updateRememberedValue(objRememberedValue3);
+            }
+            ComposerKt.sourceInformationMarkerEnd(composer);
+            IconButtonKt.IconButton((Function0) objRememberedValue3, null, false, null, null, ComposableSingletons$DeviceDetailKt.INSTANCE.m6605getLambda$12231674$app_release(), composer, 196614, 30);
+            Composer composer2 = composer;
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            composer2.endNode();
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            ComposerKt.sourceInformationMarkerEnd(composer2);
+            PingCard(device.getIp(), composer2, 0);
+            float f4 = 4;
+            Modifier modifierM682paddingVpY3zN4 = PaddingKt.m682paddingVpY3zN4(SizeKt.fillMaxWidth$default(Modifier.INSTANCE, 0.0f, 1, null), Dp.m6299constructorimpl(f3), Dp.m6299constructorimpl(f4));
+            Arrangement.HorizontalOrVertical horizontalOrVerticalM561spacedBy0680j_4 = Arrangement.INSTANCE.m561spacedBy0680j_4(Dp.m6299constructorimpl(8));
+            ComposerKt.sourceInformationMarkerStart(composer2, 693286680, "CC(Row)P(2,1,3)99@5018L58,100@5081L130:Row.kt#2w3rfo");
+            MeasurePolicy measurePolicyRowMeasurePolicy2 = RowKt.rowMeasurePolicy(horizontalOrVerticalM561spacedBy0680j_4, Alignment.INSTANCE.getTop(), composer2, 6);
+            ComposerKt.sourceInformationMarkerStart(composer2, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash5 = ComposablesKt.getCurrentCompositeKeyHash(composer2, 0);
+            CompositionLocalMap currentCompositionLocalMap5 = composer2.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier5 = ComposedModifierKt.materializeModifier(composer2, modifierM682paddingVpY3zN4);
+            Function0<ComposeUiNode> constructor5 = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composer2, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composer2.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composer2.startReusableNode();
+            if (composer2.getInserting()) {
+                composer2.createNode(constructor5);
+            } else {
+                composer2.useNode();
+            }
+            Composer composerM3333constructorimpl5 = Updater.m3333constructorimpl(composer2);
+            Updater.m3340setimpl(composerM3333constructorimpl5, measurePolicyRowMeasurePolicy2, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl5, currentCompositionLocalMap5, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash5 = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl5.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl5.rememberedValue(), Integer.valueOf(currentCompositeKeyHash5))) {
+                composerM3333constructorimpl5.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash5));
+                composerM3333constructorimpl5.apply(Integer.valueOf(currentCompositeKeyHash5), setCompositeKeyHash5);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl5, modifierMaterializeModifier5, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composer2, -407840262, "C101@5126L9:Row.kt#2w3rfo");
+            final RowScopeInstance rowScopeInstance2 = RowScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composer2, 931945015, "C78@3982L237,78@3913L306,82@4339L80,82@4236L183:DeviceDetail.kt#woosis");
+            List<Integer> openPorts = device.getOpenPorts();
+            if ((openPorts instanceof Collection) && openPorts.isEmpty()) {
+                device2 = device;
+                context2 = context;
+                composer2.startReplaceGroup(928648226);
+                composer2.endReplaceGroup();
+                ImageVector contentCopy = ContentCopyKt.getContentCopy(Icons.Filled.INSTANCE);
+                Modifier modifierWeight$default2 = RowScope.weight$default(rowScopeInstance2, Modifier.INSTANCE, 1.0f, false, 2, null);
+                ComposerKt.sourceInformationMarkerStart(composer2, 1831199405, "CC(remember):DeviceDetail.kt#9igjgp");
+                zChangedInstance = composer2.changedInstance(context2) | composer2.changedInstance(device2);
+                objRememberedValue = composer2.rememberedValue();
+                if (zChangedInstance) {
+                }
+            } else {
+                Iterator<T> it = openPorts.iterator();
+                while (it.hasNext()) {
+                    int iIntValue = ((Number) it.next()).intValue();
+                    if (iIntValue == 80 || iIntValue == 443 || iIntValue == 8080) {
+                        composer2.startReplaceGroup(931987422);
+                        ComposerKt.sourceInformation(composer2, "70@3440L438,70@3370L508");
+                        ImageVector language = LanguageKt.getLanguage(Icons.Filled.INSTANCE);
+                        Modifier modifierWeight$default3 = RowScope.weight$default(rowScopeInstance2, Modifier.INSTANCE, 1.0f, false, 2, null);
+                        ComposerKt.sourceInformationMarkerStart(composer2, 1831182262, "CC(remember):DeviceDetail.kt#9igjgp");
+                        device2 = device;
+                        context2 = context;
+                        boolean zChangedInstance3 = composer2.changedInstance(device2) | composer2.changedInstance(context2);
+                        Object objRememberedValue4 = composer2.rememberedValue();
+                        if (zChangedInstance3 || objRememberedValue4 == Composer.INSTANCE.getEmpty()) {
+                            objRememberedValue4 = new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda24
+                                @Override // kotlin.jvm.functions.Function0
+                                public final Object invoke() {
+                                    return DeviceDetailKt.DeviceDetailScreen$lambda$46$lambda$45$lambda$27$lambda$22$lambda$21(device2, rowScopeInstance2, context2);
+                                }
+                            };
+                            composer2.updateRememberedValue(objRememberedValue4);
+                        }
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ToolButton("Open web UI", language, modifierWeight$default3, (Function0) objRememberedValue4, composer2, 6);
+                        composer2.endReplaceGroup();
+                        ImageVector contentCopy2 = ContentCopyKt.getContentCopy(Icons.Filled.INSTANCE);
+                        Modifier modifierWeight$default22 = RowScope.weight$default(rowScopeInstance2, Modifier.INSTANCE, 1.0f, false, 2, null);
+                        ComposerKt.sourceInformationMarkerStart(composer2, 1831199405, "CC(remember):DeviceDetail.kt#9igjgp");
+                        zChangedInstance = composer2.changedInstance(context2) | composer2.changedInstance(device2);
+                        objRememberedValue = composer2.rememberedValue();
+                        if (zChangedInstance || objRememberedValue == Composer.INSTANCE.getEmpty()) {
+                            objRememberedValue = new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda25
+                                @Override // kotlin.jvm.functions.Function0
+                                public final Object invoke() {
+                                    return DeviceDetailKt.DeviceDetailScreen$lambda$46$lambda$45$lambda$27$lambda$24$lambda$23(context2, device2);
+                                }
+                            };
+                            composer2.updateRememberedValue(objRememberedValue);
+                        }
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ToolButton("Copy IP", contentCopy2, modifierWeight$default22, (Function0) objRememberedValue, composer2, 6);
+                        String str2 = !row.getKnown() ? "Known ✓" : "Mark known";
+                        ImageVector verifiedUser = VerifiedUserKt.getVerifiedUser(Icons.Filled.INSTANCE);
+                        Modifier modifierWeight$default4 = RowScope.weight$default(rowScopeInstance2, Modifier.INSTANCE, 1.0f, false, 2, null);
+                        ComposerKt.sourceInformationMarkerStart(composer2, 1831210672, "CC(remember):DeviceDetail.kt#9igjgp");
+                        zChangedInstance2 = composer2.changedInstance(scanViewModel) | composer2.changedInstance(row);
+                        objRememberedValue2 = composer2.rememberedValue();
+                        if (!zChangedInstance2 || objRememberedValue2 == Composer.INSTANCE.getEmpty()) {
+                            objRememberedValue2 = new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda26
+                                @Override // kotlin.jvm.functions.Function0
+                                public final Object invoke() {
+                                    return DeviceDetailKt.DeviceDetailScreen$lambda$46$lambda$45$lambda$27$lambda$26$lambda$25(scanViewModel, row);
+                                }
+                            };
+                            composer2.updateRememberedValue(objRememberedValue2);
+                        }
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ToolButton(str2, verifiedUser, modifierWeight$default4, (Function0) objRememberedValue2, composer2, 0);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        composer2.endNode();
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        SectionTitle("Identity", composer2, 6);
+                        Fact("Display name", row.getDisplayName(), composer2, 6);
+                        mdnsName = device2.getMdnsName();
+                        if (mdnsName != null) {
+                            composer2.startReplaceGroup(-1137797190);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137797189);
+                            ComposerKt.sourceInformation(composer2, "*90@4574L26");
+                            Fact("mDNS / Bonjour", mdnsName, composer2, 6);
+                            Unit unit = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit2 = Unit.INSTANCE;
+                        }
+                        netbiosName = device2.getNetbiosName();
+                        if (netbiosName != null) {
+                            composer2.startReplaceGroup(-1137735748);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137735747);
+                            ComposerKt.sourceInformation(composer2, "*91@4636L24");
+                            Fact("NetBIOS name", netbiosName, composer2, 6);
+                            Unit unit3 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit4 = Unit.INSTANCE;
+                        }
+                        dnsName = device2.getDnsName();
+                        if (dnsName != null) {
+                            composer2.startReplaceGroup(-1137680320);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137680319);
+                            ComposerKt.sourceInformation(composer2, "*92@4692L20");
+                            Fact("DNS name", dnsName, composer2, 6);
+                            Unit unit5 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit6 = Unit.INSTANCE;
+                        }
+                        model = device2.getModel();
+                        if (model != null) {
+                            composer2.startReplaceGroup(-1137630813);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137630812);
+                            ComposerKt.sourceInformation(composer2, "*93@4742L17");
+                            Fact("Model", model, composer2, 6);
+                            Unit unit7 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit8 = Unit.INSTANCE;
+                        }
+                        vendor = device2.getVendor();
+                        if (vendor != null) {
+                            composer2.startReplaceGroup(-1137583197);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137583196);
+                            ComposerKt.sourceInformation(composer2, "*94@4790L17");
+                            Fact("Maker", vendor, composer2, 6);
+                            Unit unit9 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit10 = Unit.INSTANCE;
+                        }
+                        mac = device2.getMac();
+                        if (mac != null) {
+                            composer2.startReplaceGroup(-1137538247);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137538246);
+                            ComposerKt.sourceInformation(composer2, "*95@4835L27");
+                            Fact("MAC (announced)", mac, composer2, 6);
+                            Unit unit11 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit12 = Unit.INSTANCE;
+                        }
+                        ssdpUuid = device2.getSsdpUuid();
+                        if (ssdpUuid != null) {
+                            composer2.startReplaceGroup(-1137478913);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137478912);
+                            ComposerKt.sourceInformation(composer2, "*96@4895L21");
+                            Fact("UPnP UUID", ssdpUuid, composer2, 6);
+                            Unit unit13 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit14 = Unit.INSTANCE;
+                        }
+                        httpServer = device2.getHttpServer();
+                        if (httpServer != null) {
+                            composer2.startReplaceGroup(-1137423330);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137423329);
+                            ComposerKt.sourceInformation(composer2, "*97@4951L22");
+                            Fact("Web server", httpServer, composer2, 6);
+                            Unit unit15 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit16 = Unit.INSTANCE;
+                        }
+                        httpTitle = device2.getHttpTitle();
+                        if (httpTitle != null) {
+                            composer2.startReplaceGroup(-1137367654);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1137367653);
+                            ComposerKt.sourceInformation(composer2, "*98@5007L26");
+                            Fact("Web page title", httpTitle, composer2, 6);
+                            Unit unit17 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit18 = Unit.INSTANCE;
+                        }
+                        if (device2.getOpenPorts().isEmpty()) {
+                            composer2.startReplaceGroup(-1137284325);
+                            ComposerKt.sourceInformation(composer2, "101@5097L26,102@5176L17,102@5140L151");
+                            SectionTitle("Open ports", composer2, 6);
+                            List<Integer> openPorts2 = device2.getOpenPorts();
+                            ComposerKt.sourceInformationMarkerStart(composer2, -1976346346, "CC(remember):DeviceDetail.kt#9igjgp");
+                            Object objRememberedValue5 = composer2.rememberedValue();
+                            if (objRememberedValue5 == Composer.INSTANCE.getEmpty()) {
+                                objRememberedValue5 = new Function1() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda27
+                                    @Override // kotlin.jvm.functions.Function1
+                                    public final Object invoke(Object obj) {
+                                        return DeviceDetailKt.DeviceDetailScreen$lambda$46$lambda$45$lambda$38$lambda$37(((Integer) obj).intValue());
+                                    }
+                                };
+                                composer2.updateRememberedValue(objRememberedValue5);
+                            }
+                            ComposerKt.sourceInformationMarkerEnd(composer2);
+                            f = f4;
+                            i2 = -1142330691;
+                            TextKt.m2373Text4IGK_g(CollectionsKt.joinToString$default(openPorts2, str, null, null, 0, null, (Function1) objRememberedValue5, 30, null), PaddingKt.m682paddingVpY3zN4(Modifier.INSTANCE, Dp.m6299constructorimpl(f2), Dp.m6299constructorimpl(f4)), Ink.INSTANCE.m6636getText0d7_KjU(), TextUnitKt.getSp(14), (FontStyle) null, (FontWeight) null, (FontFamily) ThemeKt.getMono(), 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer, 1576368, 0, 130992);
+                            composer2 = composer;
+                        } else {
+                            i2 = -1142330691;
+                            f = f4;
+                            composer2.startReplaceGroup(-1142330691);
+                        }
+                        composer2.endReplaceGroup();
+                        List<String> services = device.getServices();
+                        arrayList = new ArrayList();
+                        for (Object obj : services) {
+                            if (!StringsKt.startsWith$default((String) obj, "upnp:", false, 2, (Object) null)) {
+                                arrayList.add(obj);
+                            }
+                        }
+                        if (arrayList.isEmpty()) {
+                            composer2.startReplaceGroup(-1136983222);
+                            ComposerKt.sourceInformation(composer2, "105@5400L24,106@5441L170");
+                            SectionTitle("Services", composer2, 6);
+                            List<String> services2 = device.getServices();
+                            ArrayList arrayList2 = new ArrayList();
+                            for (Object obj2 : services2) {
+                                if (!StringsKt.startsWith$default((String) obj2, "upnp:", false, 2, (Object) null)) {
+                                    arrayList2.add(obj2);
+                                }
+                            }
+                            TextKt.m2373Text4IGK_g(CollectionsKt.joinToString$default(arrayList2, "\n", null, null, 0, null, null, 62, null), PaddingKt.m682paddingVpY3zN4(Modifier.INSTANCE, Dp.m6299constructorimpl(f2), Dp.m6299constructorimpl(f)), Ink.INSTANCE.m6637getTextDim0d7_KjU(), TextUnitKt.getSp(13), (FontStyle) null, (FontWeight) null, (FontFamily) ThemeKt.getMono(), 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composer, 1576368, 0, 130992);
+                            composer2 = composer;
+                            composer2.endReplaceGroup();
+                            i3 = 6;
+                        } else {
+                            i3 = 6;
+                            composer2.startReplaceGroup(i2);
+                            composer2.endReplaceGroup();
+                        }
+                        SectionTitle("Signal", composer2, i3);
+                        List<String> seenBy = device.getSeenBy();
+                        ArrayList arrayList3 = new ArrayList();
+                        for (Object obj3 : seenBy) {
+                            if (!Intrinsics.areEqual((String) obj3, "self")) {
+                                arrayList3.add(obj3);
+                            }
+                        }
+                        strJoinToString$default = CollectionsKt.joinToString$default(arrayList3, ", ", null, null, 0, null, null, 62, null);
+                        if (strJoinToString$default.length() == 0) {
+                            strJoinToString$default = "—";
+                        }
+                        Fact("Discovered via", strJoinToString$default, composer2, i3);
+                        rttMs = device.getRttMs();
+                        if (rttMs != null) {
+                            composer2.startReplaceGroup(-1136586733);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1136586732);
+                            ComposerKt.sourceInformation(composer2, "*111@5793L65");
+                            float fFloatValue = rttMs.floatValue();
+                            Fact("Latency", fFloatValue < 1.0f ? "<1 ms" : MathKt.roundToInt(fFloatValue) + " ms", composer2, i3);
+                            Unit unit19 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit20 = Unit.INSTANCE;
+                        }
+                        ttl = device.getTtl();
+                        if (ttl != null) {
+                            composer2.startReplaceGroup(-1136495376);
+                            composer2.endReplaceGroup();
+                        } else {
+                            composer2.startReplaceGroup(-1136495375);
+                            ComposerKt.sourceInformation(composer2, "*112@5886L36");
+                            int iIntValue2 = ttl.intValue();
+                            Fact("TTL", iIntValue2 + "  (" + ttlHint(iIntValue2) + ")", composer2, i3);
+                            Unit unit21 = Unit.INSTANCE;
+                            composer2.endReplaceGroup();
+                            Unit unit22 = Unit.INSTANCE;
+                        }
+                        SpacerKt.Spacer(SizeKt.m712height3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(40)), composer2, i3);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        composer2.endNode();
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        if (ComposerKt.isTraceInProgress()) {
+                            ComposerKt.traceEventEnd();
+                        }
+                    }
+                }
+                device2 = device;
+                context2 = context;
+                composer2.startReplaceGroup(928648226);
+                composer2.endReplaceGroup();
+                ImageVector contentCopy22 = ContentCopyKt.getContentCopy(Icons.Filled.INSTANCE);
+                Modifier modifierWeight$default222 = RowScope.weight$default(rowScopeInstance2, Modifier.INSTANCE, 1.0f, false, 2, null);
+                ComposerKt.sourceInformationMarkerStart(composer2, 1831199405, "CC(remember):DeviceDetail.kt#9igjgp");
+                zChangedInstance = composer2.changedInstance(context2) | composer2.changedInstance(device2);
+                objRememberedValue = composer2.rememberedValue();
+                if (zChangedInstance) {
+                    objRememberedValue = new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda25
+                        @Override // kotlin.jvm.functions.Function0
+                        public final Object invoke() {
+                            return DeviceDetailKt.DeviceDetailScreen$lambda$46$lambda$45$lambda$27$lambda$24$lambda$23(context2, device2);
+                        }
+                    };
+                    composer2.updateRememberedValue(objRememberedValue);
+                    ComposerKt.sourceInformationMarkerEnd(composer2);
+                    ToolButton("Copy IP", contentCopy22, modifierWeight$default222, (Function0) objRememberedValue, composer2, 6);
+                    if (!row.getKnown()) {
+                    }
+                    ImageVector verifiedUser2 = VerifiedUserKt.getVerifiedUser(Icons.Filled.INSTANCE);
+                    Modifier modifierWeight$default42 = RowScope.weight$default(rowScopeInstance2, Modifier.INSTANCE, 1.0f, false, 2, null);
+                    ComposerKt.sourceInformationMarkerStart(composer2, 1831210672, "CC(remember):DeviceDetail.kt#9igjgp");
+                    zChangedInstance2 = composer2.changedInstance(scanViewModel) | composer2.changedInstance(row);
+                    objRememberedValue2 = composer2.rememberedValue();
+                    if (!zChangedInstance2) {
+                        objRememberedValue2 = new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda26
+                            @Override // kotlin.jvm.functions.Function0
+                            public final Object invoke() {
+                                return DeviceDetailKt.DeviceDetailScreen$lambda$46$lambda$45$lambda$27$lambda$26$lambda$25(scanViewModel, row);
+                            }
+                        };
+                        composer2.updateRememberedValue(objRememberedValue2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ToolButton(str2, verifiedUser2, modifierWeight$default42, (Function0) objRememberedValue2, composer2, 0);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        composer2.endNode();
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        SectionTitle("Identity", composer2, 6);
+                        Fact("Display name", row.getDisplayName(), composer2, 6);
+                        mdnsName = device2.getMdnsName();
+                        if (mdnsName != null) {
+                        }
+                        netbiosName = device2.getNetbiosName();
+                        if (netbiosName != null) {
+                        }
+                        dnsName = device2.getDnsName();
+                        if (dnsName != null) {
+                        }
+                        model = device2.getModel();
+                        if (model != null) {
+                        }
+                        vendor = device2.getVendor();
+                        if (vendor != null) {
+                        }
+                        mac = device2.getMac();
+                        if (mac != null) {
+                        }
+                        ssdpUuid = device2.getSsdpUuid();
+                        if (ssdpUuid != null) {
+                        }
+                        httpServer = device2.getHttpServer();
+                        if (httpServer != null) {
+                        }
+                        httpTitle = device2.getHttpTitle();
+                        if (httpTitle != null) {
+                        }
+                        if (device2.getOpenPorts().isEmpty()) {
+                        }
+                        composer2.endReplaceGroup();
+                        List<String> services3 = device.getServices();
+                        arrayList = new ArrayList();
+                        while (r1.hasNext()) {
+                        }
+                        if (arrayList.isEmpty()) {
+                        }
+                        SectionTitle("Signal", composer2, i3);
+                        List<String> seenBy2 = device.getSeenBy();
+                        ArrayList arrayList32 = new ArrayList();
+                        while (r0.hasNext()) {
+                        }
+                        strJoinToString$default = CollectionsKt.joinToString$default(arrayList32, ", ", null, null, 0, null, null, 62, null);
+                        if (strJoinToString$default.length() == 0) {
+                        }
+                        Fact("Discovered via", strJoinToString$default, composer2, i3);
+                        rttMs = device.getRttMs();
+                        if (rttMs != null) {
+                        }
+                        ttl = device.getTtl();
+                        if (ttl != null) {
+                        }
+                        SpacerKt.Spacer(SizeKt.m712height3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(40)), composer2, i3);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        composer2.endNode();
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        ComposerKt.sourceInformationMarkerEnd(composer2);
+                        if (ComposerKt.isTraceInProgress()) {
+                        }
+                    }
+                }
+            }
+        }
+        return Unit.INSTANCE;
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -549,14 +1184,180 @@ public final class DeviceDetailKt {
     /* JADX WARN: Removed duplicated region for block: B:59:0x030d  */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
-        To view partially-correct add '--show-bad-code' argument
     */
-    private static final void PingCard(java.lang.String r39, androidx.compose.runtime.Composer r40, final int r41) {
-        /*
-            Method dump skipped, instructions count: 1063
-            To view this dump add '--comments-level debug' option
-        */
-        throw new UnsupportedOperationException("Method not decompiled: com.mrnice.pixelscan.DeviceDetailKt.PingCard(java.lang.String, androidx.compose.runtime.Composer, int):void");
+    private static final void PingCard(String str, Composer composer, final int i) {
+        int i2;
+        final MutableState mutableState;
+        final MutableState mutableState2;
+        final String str2 = str;
+        Composer composerStartRestartGroup = composer.startRestartGroup(-984048610);
+        ComposerKt.sourceInformation(composerStartRestartGroup, "C(PingCard)130@6407L44,131@6468L24,132@6512L34,133@6551L1227:DeviceDetail.kt#woosis");
+        if ((i & 6) == 0) {
+            i2 = i | (composerStartRestartGroup.changed(str2) ? 4 : 2);
+        } else {
+            i2 = i;
+        }
+        if ((i2 & 3) == 2 && composerStartRestartGroup.getSkipping()) {
+            composerStartRestartGroup.skipToGroupEnd();
+        } else {
+            if (ComposerKt.isTraceInProgress()) {
+                ComposerKt.traceEventStart(-984048610, i2, -1, "com.mrnice.pixelscan.PingCard (DeviceDetail.kt:129)");
+            }
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -777906934, "CC(remember):DeviceDetail.kt#9igjgp");
+            Object objRememberedValue = composerStartRestartGroup.rememberedValue();
+            if (objRememberedValue == Composer.INSTANCE.getEmpty()) {
+                objRememberedValue = SnapshotStateKt__SnapshotStateKt.mutableStateOf$default(CollectionsKt.emptyList(), null, 2, null);
+                composerStartRestartGroup.updateRememberedValue(objRememberedValue);
+            }
+            MutableState mutableState3 = (MutableState) objRememberedValue;
+            ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, 773894976, "CC(rememberCoroutineScope)482@20332L144:Effects.kt#9igjgp");
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -954367824, "CC(remember):Effects.kt#9igjgp");
+            Object objRememberedValue2 = composerStartRestartGroup.rememberedValue();
+            if (objRememberedValue2 == Composer.INSTANCE.getEmpty()) {
+                CompositionScopedCoroutineScopeCanceller compositionScopedCoroutineScopeCanceller = new CompositionScopedCoroutineScopeCanceller(EffectsKt.createCompositionCoroutineScope(EmptyCoroutineContext.INSTANCE, composerStartRestartGroup));
+                composerStartRestartGroup.updateRememberedValue(compositionScopedCoroutineScopeCanceller);
+                objRememberedValue2 = compositionScopedCoroutineScopeCanceller;
+            }
+            ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+            final CoroutineScope coroutineScope = ((CompositionScopedCoroutineScopeCanceller) objRememberedValue2).getCoroutineScope();
+            ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -777903584, "CC(remember):DeviceDetail.kt#9igjgp");
+            Object objRememberedValue3 = composerStartRestartGroup.rememberedValue();
+            if (objRememberedValue3 == Composer.INSTANCE.getEmpty()) {
+                objRememberedValue3 = SnapshotStateKt__SnapshotStateKt.mutableStateOf$default(false, null, 2, null);
+                composerStartRestartGroup.updateRememberedValue(objRememberedValue3);
+            }
+            MutableState mutableState4 = (MutableState) objRememberedValue3;
+            ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+            Modifier modifierM681padding3ABfNKs = PaddingKt.m681padding3ABfNKs(BackgroundKt.m236backgroundbw27NRU$default(ClipKt.clip(SizeKt.fillMaxWidth$default(PaddingKt.m682paddingVpY3zN4(Modifier.INSTANCE, Dp.m6299constructorimpl(16), Dp.m6299constructorimpl(4)), 0.0f, 1, null), RoundedCornerShapeKt.m964RoundedCornerShape0680j_4(Dp.m6299constructorimpl(12))), Ink.INSTANCE.m6634getSurface0d7_KjU(), null, 2, null), Dp.m6299constructorimpl(14));
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -483455358, "CC(Column)P(2,3,1)86@4330L61,87@4396L133:Column.kt#2w3rfo");
+            MeasurePolicy measurePolicyColumnMeasurePolicy = ColumnKt.columnMeasurePolicy(Arrangement.INSTANCE.getTop(), Alignment.INSTANCE.getStart(), composerStartRestartGroup, 0);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash = ComposablesKt.getCurrentCompositeKeyHash(composerStartRestartGroup, 0);
+            CompositionLocalMap currentCompositionLocalMap = composerStartRestartGroup.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier = ComposedModifierKt.materializeModifier(composerStartRestartGroup, modifierM681padding3ABfNKs);
+            Function0<ComposeUiNode> constructor = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composerStartRestartGroup.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composerStartRestartGroup.startReusableNode();
+            if (composerStartRestartGroup.getInserting()) {
+                composerStartRestartGroup.createNode(constructor);
+            } else {
+                composerStartRestartGroup.useNode();
+            }
+            Composer composerM3333constructorimpl = Updater.m3333constructorimpl(composerStartRestartGroup);
+            Updater.m3340setimpl(composerM3333constructorimpl, measurePolicyColumnMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl, currentCompositionLocalMap, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl.rememberedValue(), Integer.valueOf(currentCompositeKeyHash))) {
+                composerM3333constructorimpl.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash));
+                composerM3333constructorimpl.apply(Integer.valueOf(currentCompositeKeyHash), setCompositeKeyHash);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl, modifierMaterializeModifier, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -384784025, "C88@4444L9:Column.kt#2w3rfo");
+            ColumnScopeInstance columnScopeInstance = ColumnScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, 105604860, "C134@6685L1022,153@7716L29,154@7754L18:DeviceDetail.kt#woosis");
+            Alignment.Vertical centerVertically = Alignment.INSTANCE.getCenterVertically();
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, 693286680, "CC(Row)P(2,1,3)99@5018L58,100@5081L130:Row.kt#2w3rfo");
+            Modifier.Companion companion = Modifier.INSTANCE;
+            MeasurePolicy measurePolicyRowMeasurePolicy = RowKt.rowMeasurePolicy(Arrangement.INSTANCE.getStart(), centerVertically, composerStartRestartGroup, 48);
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -1323940314, "CC(Layout)P(!1,2)79@3208L23,82@3359L411:Layout.kt#80mrfh");
+            int currentCompositeKeyHash2 = ComposablesKt.getCurrentCompositeKeyHash(composerStartRestartGroup, 0);
+            CompositionLocalMap currentCompositionLocalMap2 = composerStartRestartGroup.getCurrentCompositionLocalMap();
+            Modifier modifierMaterializeModifier2 = ComposedModifierKt.materializeModifier(composerStartRestartGroup, companion);
+            Function0<ComposeUiNode> constructor2 = ComposeUiNode.INSTANCE.getConstructor();
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -692256719, "CC(ReusableComposeNode)P(1,2)376@14062L9:Composables.kt#9igjgp");
+            if (!(composerStartRestartGroup.getApplier() instanceof Applier)) {
+                ComposablesKt.invalidApplier();
+            }
+            composerStartRestartGroup.startReusableNode();
+            if (composerStartRestartGroup.getInserting()) {
+                composerStartRestartGroup.createNode(constructor2);
+            } else {
+                composerStartRestartGroup.useNode();
+            }
+            Composer composerM3333constructorimpl2 = Updater.m3333constructorimpl(composerStartRestartGroup);
+            Updater.m3340setimpl(composerM3333constructorimpl2, measurePolicyRowMeasurePolicy, ComposeUiNode.INSTANCE.getSetMeasurePolicy());
+            Updater.m3340setimpl(composerM3333constructorimpl2, currentCompositionLocalMap2, ComposeUiNode.INSTANCE.getSetResolvedCompositionLocals());
+            Function2<ComposeUiNode, Integer, Unit> setCompositeKeyHash2 = ComposeUiNode.INSTANCE.getSetCompositeKeyHash();
+            if (composerM3333constructorimpl2.getInserting() || !Intrinsics.areEqual(composerM3333constructorimpl2.rememberedValue(), Integer.valueOf(currentCompositeKeyHash2))) {
+                composerM3333constructorimpl2.updateRememberedValue(Integer.valueOf(currentCompositeKeyHash2));
+                composerM3333constructorimpl2.apply(Integer.valueOf(currentCompositeKeyHash2), setCompositeKeyHash2);
+            }
+            Updater.m3340setimpl(composerM3333constructorimpl2, modifierMaterializeModifier2, ComposeUiNode.INSTANCE.getSetModifier());
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, -407840262, "C101@5126L9:Row.kt#2w3rfo");
+            RowScopeInstance rowScopeInstance = RowScopeInstance.INSTANCE;
+            ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, 1288702925, "C135@6751L99,137@6907L160,138@7080L28,139@7142L494,151@7638L59,139@7121L576:DeviceDetail.kt#woosis");
+            int i3 = i2;
+            TextKt.m2373Text4IGK_g("Live ping", RowScope.weight$default(rowScopeInstance, Modifier.INSTANCE, 1.0f, false, 2, null), Ink.INSTANCE.m6636getText0d7_KjU(), 0L, (FontStyle) null, FontWeight.INSTANCE.getMedium(), (FontFamily) null, 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composerStartRestartGroup, 196998, 0, 131032);
+            Float f = (Float) CollectionsKt.lastOrNull((List) PingCard$lambda$54(mutableState3));
+            if (f != null) {
+                float fFloatValue = f.floatValue();
+                String str3 = fFloatValue < 0.0f ? "timeout" : MathKt.roundToInt(fFloatValue) + " ms";
+                if (str3 == null) {
+                    str3 = "—";
+                }
+                TextKt.m2373Text4IGK_g(str3, (Modifier) null, (f == null || f.floatValue() >= 0.0f) ? Ink.INSTANCE.m6637getTextDim0d7_KjU() : Ink.INSTANCE.m6632getRed0d7_KjU(), 0L, (FontStyle) null, (FontWeight) null, (FontFamily) ThemeKt.getMono(), 0L, (TextDecoration) null, (TextAlign) null, 0L, 0, false, 0, 0, (Function1<? super TextLayoutResult, Unit>) null, (TextStyle) null, composerStartRestartGroup, 1572864, 0, 131002);
+                composerStartRestartGroup = composerStartRestartGroup;
+                float f2 = 8;
+                SpacerKt.Spacer(SizeKt.m731width3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(f2)), composerStartRestartGroup, 6);
+                ComposerKt.sourceInformationMarkerStart(composerStartRestartGroup, 41583122, "CC(remember):DeviceDetail.kt#9igjgp");
+                boolean zChangedInstance = composerStartRestartGroup.changedInstance(coroutineScope) | ((i3 & 14) == 4);
+                Object objRememberedValue4 = composerStartRestartGroup.rememberedValue();
+                if (zChangedInstance || objRememberedValue4 == Composer.INSTANCE.getEmpty()) {
+                    str2 = str;
+                    mutableState = mutableState3;
+                    mutableState2 = mutableState4;
+                    objRememberedValue4 = new Function0() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda31
+                        @Override // kotlin.jvm.functions.Function0
+                        public final Object invoke() {
+                            return DeviceDetailKt.PingCard$lambda$64$lambda$63$lambda$61$lambda$60(coroutineScope, mutableState2, mutableState, str2);
+                        }
+                    };
+                    composerStartRestartGroup.updateRememberedValue(objRememberedValue4);
+                } else {
+                    str2 = str;
+                    mutableState = mutableState3;
+                    mutableState2 = mutableState4;
+                }
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                ButtonKt.TextButton((Function0) objRememberedValue4, null, false, null, null, null, null, null, null, ComposableLambdaKt.rememberComposableLambda(721710631, true, new Function3() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda32
+                    @Override // kotlin.jvm.functions.Function3
+                    public final Object invoke(Object obj, Object obj2, Object obj3) {
+                        return DeviceDetailKt.PingCard$lambda$64$lambda$63$lambda$62(mutableState2, (RowScope) obj, (Composer) obj2, ((Integer) obj3).intValue());
+                    }
+                }, composerStartRestartGroup, 54), composerStartRestartGroup, 805306368, 510);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                composerStartRestartGroup.endNode();
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                SpacerKt.Spacer(SizeKt.m712height3ABfNKs(Modifier.INSTANCE, Dp.m6299constructorimpl(f2)), composerStartRestartGroup, 6);
+                Sparkline(PingCard$lambda$54(mutableState), composerStartRestartGroup, 0);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                composerStartRestartGroup.endNode();
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                ComposerKt.sourceInformationMarkerEnd(composerStartRestartGroup);
+                if (ComposerKt.isTraceInProgress()) {
+                    ComposerKt.traceEventEnd();
+                }
+            }
+        }
+        ScopeUpdateScope scopeUpdateScopeEndRestartGroup = composerStartRestartGroup.endRestartGroup();
+        if (scopeUpdateScopeEndRestartGroup != null) {
+            scopeUpdateScopeEndRestartGroup.updateScope(new Function2() { // from class: com.mrnice.pixelscan.DeviceDetailKt$$ExternalSyntheticLambda33
+                @Override // kotlin.jvm.functions.Function2
+                public final Object invoke(Object obj, Object obj2) {
+                    return DeviceDetailKt.PingCard$lambda$65(str2, i, (Composer) obj, ((Integer) obj2).intValue());
+                }
+            });
+        }
     }
 
     /* JADX INFO: Access modifiers changed from: private */

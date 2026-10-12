@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import kotlin.Metadata;
 import kotlin.collections.CollectionsKt;
 import kotlin.collections.IntIterator;
@@ -283,91 +284,45 @@ public final class Store {
         /* JADX WARN: Removed duplicated region for block: B:24:0x0077  */
         /*
             Code decompiled incorrectly, please refer to instructions dump.
-            To view partially-correct add '--show-bad-code' argument
         */
-        public final java.lang.String keyOf(java.lang.String r4, java.lang.String r5, java.lang.String r6, java.lang.String r7, java.lang.String r8, java.lang.String r9) {
-            /*
-                r3 = this;
-                java.lang.String r0 = "ip"
-                kotlin.jvm.internal.Intrinsics.checkNotNullParameter(r9, r0)
-                java.lang.String r0 = "toLowerCase(...)"
-                if (r4 == 0) goto L27
-                java.util.Locale r1 = java.util.Locale.ROOT
-                java.lang.String r4 = r4.toLowerCase(r1)
-                kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r4, r0)
-                if (r4 == 0) goto L27
-                java.lang.StringBuilder r1 = new java.lang.StringBuilder
-                java.lang.String r2 = "mac:"
-                r1.<init>(r2)
-                java.lang.StringBuilder r4 = r1.append(r4)
-                java.lang.String r4 = r4.toString()
-                if (r4 != 0) goto L26
-                goto L27
-            L26:
-                return r4
-            L27:
-                if (r5 == 0) goto L39
-                java.lang.StringBuilder r4 = new java.lang.StringBuilder
-                java.lang.String r6 = "upnp:"
-                r4.<init>(r6)
-                java.lang.StringBuilder r4 = r4.append(r5)
-                java.lang.String r4 = r4.toString()
-                return r4
-            L39:
-                r4 = 0
-                if (r6 == 0) goto L57
-                java.util.Locale r5 = java.util.Locale.ROOT
-                java.lang.String r5 = r6.toLowerCase(r5)
-                kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r5, r0)
-                if (r5 == 0) goto L57
-                java.lang.StringBuilder r6 = new java.lang.StringBuilder
-                java.lang.String r1 = "mdns:"
-                r6.<init>(r1)
-                java.lang.StringBuilder r5 = r6.append(r5)
-                java.lang.String r5 = r5.toString()
-                goto L58
-            L57:
-                r5 = r4
-            L58:
-                if (r5 != 0) goto La8
-                if (r7 == 0) goto L77
-                java.util.Locale r5 = java.util.Locale.ROOT
-                java.lang.String r5 = r7.toLowerCase(r5)
-                kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r5, r0)
-                if (r5 == 0) goto L77
-                java.lang.StringBuilder r6 = new java.lang.StringBuilder
-                java.lang.String r7 = "nb:"
-                r6.<init>(r7)
-                java.lang.StringBuilder r5 = r6.append(r5)
-                java.lang.String r5 = r5.toString()
-                goto L78
-            L77:
-                r5 = r4
-            L78:
-                if (r5 != 0) goto La8
-                if (r8 == 0) goto L96
-                java.util.Locale r5 = java.util.Locale.ROOT
-                java.lang.String r5 = r8.toLowerCase(r5)
-                kotlin.jvm.internal.Intrinsics.checkNotNullExpressionValue(r5, r0)
-                if (r5 == 0) goto L96
-                java.lang.StringBuilder r4 = new java.lang.StringBuilder
-                java.lang.String r6 = "dns:"
-                r4.<init>(r6)
-                java.lang.StringBuilder r4 = r4.append(r5)
-                java.lang.String r4 = r4.toString()
-            L96:
-                if (r4 != 0) goto La7
-                java.lang.StringBuilder r4 = new java.lang.StringBuilder
-                java.lang.String r5 = "ip:"
-                r4.<init>(r5)
-                java.lang.StringBuilder r4 = r4.append(r9)
-                java.lang.String r4 = r4.toString()
-            La7:
-                return r4
-            La8:
-                return r5
-            */
-            throw new UnsupportedOperationException("Method not decompiled: com.mrnice.pixelscan.Store.Companion.keyOf(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String):java.lang.String");
+        public final String keyOf(String mac, String uuid, String mdns, String netbios, String dns, String ip) {
+            String str;
+            String str2;
+            Intrinsics.checkNotNullParameter(ip, "ip");
+            if (mac != null) {
+                String lowerCase = mac.toLowerCase(Locale.ROOT);
+                Intrinsics.checkNotNullExpressionValue(lowerCase, "toLowerCase(...)");
+                if (lowerCase != null && (str2 = "mac:" + lowerCase) != null) {
+                    return str2;
+                }
+            }
+            if (uuid != null) {
+                return "upnp:" + uuid;
+            }
+            String str3 = null;
+            if (mdns != null) {
+                String lowerCase2 = mdns.toLowerCase(Locale.ROOT);
+                Intrinsics.checkNotNullExpressionValue(lowerCase2, "toLowerCase(...)");
+                str = lowerCase2 != null ? "mdns:" + lowerCase2 : null;
+            }
+            if (str == null) {
+                if (netbios != null) {
+                    String lowerCase3 = netbios.toLowerCase(Locale.ROOT);
+                    Intrinsics.checkNotNullExpressionValue(lowerCase3, "toLowerCase(...)");
+                    str = lowerCase3 != null ? "nb:" + lowerCase3 : null;
+                    if (str == null) {
+                        if (dns != null) {
+                            String lowerCase4 = dns.toLowerCase(Locale.ROOT);
+                            Intrinsics.checkNotNullExpressionValue(lowerCase4, "toLowerCase(...)");
+                            if (lowerCase4 != null) {
+                                str3 = "dns:" + lowerCase4;
+                            }
+                        }
+                        return str3 == null ? "ip:" + ip : str3;
+                    }
+                }
+            }
+            return str;
         }
 
         public final String networkKey(LanInfo lan) {
