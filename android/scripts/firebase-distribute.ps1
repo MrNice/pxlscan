@@ -15,10 +15,10 @@ function Prop($k) {
     return ""
 }
 if (-not $Apk) {
-    # Build output lives on F: on the shoebox (root build.gradle.kts), else in the usual place.
-    $candidates = @("F:\pxlscan-build\app\outputs\apk\debug\app-debug.apk", "app\build\outputs\apk\debug\app-debug.apk") |
-        Where-Object { Test-Path $_ } | ForEach-Object { Get-Item $_ }
-    $Apk = ($candidates | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName
+    # Prefer the newest signed release in dist\, else the latest debug build.
+    $candidates = @(Get-ChildItem ..\dist\PxLScan-*.apk -ErrorAction SilentlyContinue) +
+        @(Get-Item app\build\outputs\apk\debug\app-debug.apk -ErrorAction SilentlyContinue)
+    $Apk = ($candidates | Where-Object { $_ } | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName
 }
 $AppId = if ($env:FIREBASE_ANDROID_APP_ID) { $env:FIREBASE_ANDROID_APP_ID } else { Prop "appId" }
 $Groups = if ($env:FIREBASE_GROUPS) { $env:FIREBASE_GROUPS } else { Prop "groups" }

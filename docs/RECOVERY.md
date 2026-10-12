@@ -2,7 +2,7 @@
 
 This repo is a rebuild. The original app, **PixelScan 0.1.1** (`com.mrnice.pixelscan`), was
 built on 2026-09-30 in a Claude cloud session that no longer exists, from a folder that was
-never under git. Only the APK on the captain's phone survived.
+never under git. Only the APK on the author's phone survived.
 
 `reference/pixelscan-0.1.1/` holds what was recovered from that APK on 2026-10-11:
 

@@ -83,7 +83,6 @@ val cargoBuild by tasks.registering(Exec::class) {
         "cargo", "ndk", "-t", "arm64-v8a", "-t", "x86_64", "-P", "26",
         "-o", "../app/src/main/jniLibs", "build", "--release",
     )
-    if (file("F:/").exists()) environment("CARGO_TARGET_DIR", "F:/cargo-target/pxlscan")
 }
 if (!project.hasProperty("skipCargo")) {
     tasks.named("preBuild") { dependsOn(cargoBuild) }
