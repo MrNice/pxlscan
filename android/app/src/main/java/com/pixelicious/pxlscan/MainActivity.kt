@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -88,7 +89,7 @@ class MainActivity : ComponentActivity() {
 }
 
 object BuildConfigLite {
-    const val VERSION = "0.2.0"
+    const val VERSION = "0.2.1"
 }
 
 private enum class Tab(val label: String, val icon: ImageVector) {
@@ -115,6 +116,9 @@ fun App(vm: ScanViewModel = viewModel()) {
     }
 
     val id = detailId
+    // System back (gesture or button) closes the detail screen instead of leaving the app. With
+    // targetSdk 36, predictive back is on by default and only a registered handler is honoured.
+    BackHandler(enabled = id != null) { detailId = null }
     if (id != null) {
         DeviceDetailScreen(vm, id, onBack = { detailId = null })
         return

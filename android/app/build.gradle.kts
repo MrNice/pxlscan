@@ -16,15 +16,22 @@ val keystoreProps = Properties().apply {
 
 android {
     namespace = "com.pixelicious.pxlscan"
-    compileSdk = 35
+    compileSdk = 36
+    // The NDK cargo-ndk builds with; AGP needs it too, to strip the .so and extract its symbols.
+    ndkVersion = "27.2.12479018"
 
     defaultConfig {
         applicationId = "com.pixelicious.pxlscan"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 3
-        versionName = "0.2.0"
-        ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
+        // Play requires API 36 for new apps since the August 2026 deadline.
+        targetSdk = 36
+        versionCode = 4
+        versionName = "0.2.1"
+        ndk {
+            abiFilters += listOf("arm64-v8a", "x86_64")
+            // Ship the Rust core's symbol table in the .aab so Play shows readable native stacks.
+            debugSymbolLevel = "SYMBOL_TABLE"
+        }
     }
 
     signingConfigs {
