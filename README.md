@@ -1,8 +1,10 @@
 # PxLScan
 
-> **[Join the PxLScan test](https://appdistribution.firebase.dev/i/4cc79c7bd84a9823)** to get the app and every update as it ships. Sign in
-> with a Google account and install from the tester app. Prefer no sign-in? The APK is on the
-> [Releases](../../releases) page.
+> **Help get PxLScan onto Google Play.** Play needs 12+ testers for 14 days before a new app can launch.
+> 1. Join [pxlscan-testers](https://groups.google.com/g/pxlscan-testers) with the Google account on your phone.
+> 2. Opt in: on your phone, open [PxLScan on Google Play](https://play.google.com/store/apps/details?id=com.pixelicious.pxlscan) and install. On a computer, use the [web opt-in page](https://play.google.com/apps/testing/com.pixelicious.pxlscan) and tap **Become a tester**.
+>
+> Please keep it installed for 14 days. Prefer no Google account? The APK is on the [Releases](https://github.com/MrNice/pxlscan/releases) page.
 
 A LAN scanner for Android. It finds the devices on your Wi-Fi, works out what each one is, and can
 watch the network in the background and tell you when something new shows up.
@@ -22,8 +24,7 @@ your DNS server, and nothing else.
 
 Two ways, both Android 8.0 or newer:
 
-- **Join the test.** The [invite link](https://appdistribution.firebase.dev/i/4cc79c7bd84a9823) signs you up as a tester. New builds then arrive
-  through the tester app, with no download each time.
+- **Google Play (testing).** Join the [tester group](https://groups.google.com/g/pxlscan-testers), then install [from Google Play](https://play.google.com/store/apps/details?id=com.pixelicious.pxlscan) on your phone, or opt in on the [web](https://play.google.com/apps/testing/com.pixelicious.pxlscan). Updates come through Play.
 - **Download the APK** from the [Releases](../../releases) page and open it on your phone. Android
   asks you to allow installs from your browser or file manager the first time.
 
