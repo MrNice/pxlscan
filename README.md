@@ -110,7 +110,7 @@ Questions about privacy: [nicholas@pixelicious.com](mailto:nicholas@pixelicious.
 
 ## Building
 
-Needs JDK 17, the Android SDK (API 35) with NDK 27.2, Rust with the `aarch64-linux-android` and
+Needs JDK 17, the Android SDK (API 36) with NDK 27.2, Rust with the `aarch64-linux-android` and
 `x86_64-linux-android` targets, and `cargo install cargo-ndk`.
 
 ```sh
